@@ -39,26 +39,98 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Inscription') }}</a>
                                 </li>
                             @endif
                         @else
+
+                            @if(Auth::user()->admin == 1)
+                                <li class="nav-item dropdown">
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        {{ __('Interface administrateur') }}
+                                    </a>
+
+                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ url('/admin/sports/home') }}">
+                                            {{ __('Sports') }}
+                                        </a>
+
+                                        <a class="dropdown-item" href="{{ url('/admin/horeca/home') }}">
+                                            {{ __('Horeca') }}
+                                        </a>
+
+                                        <a class="dropdown-item" href="{{ url('/admin/users') }}">
+                                            {{ __('Utilisateurs') }}
+                                        </a>
+                                    </div>
+                                </li>
+                            @endif
+
+                            
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('Sports') }}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('/sports/home') }}">
+                                        {{ __('Accueil') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ url('/sports/booking') }}">
+                                        {{ __('Réserver') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ url('/sports/planning') }}">
+                                        {{ __('Planning') }}
+                                    </a>
+                                    
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ __('Horeca') }}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('/horeca/home') }}">
+                                        {{ __('Accueil') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ url('/horeca/booking') }}">
+                                        {{ __('Réserver') }}
+                                    </a>
+                                    
+                                    <a class="dropdown-item" href="{{ url('/horeca/menu') }}">
+                                        {{ __('Menu') }}
+                                    </a>
+                                    
+                                </div>
+                            </li>
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
-
+                                
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ url('/profile/one/'.Auth::user()->id) }}">
+                                        {{ __('Mon profil') }}
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ url('/profile/reservations/'.Auth::user()->id) }}">
+                                        {{ __('Mes réservations') }}
+                                    </a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Déconnexion') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
