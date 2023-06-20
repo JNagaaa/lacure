@@ -5,10 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Administration du portail Sports') }}</div>
+                <div class="card-header">{{ __('Ajouter un plat') }}</div>
 
                 <div class="card-body">
-                    {{ __('Administrez ici le portail Sports') }}
+                    {{ __('') }}
                 </div>
             </div>
         </div>

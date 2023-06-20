@@ -21,25 +21,87 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 //Routes d'authentification
 Auth::routes();
 
-//Routes d'administration
-Route::get('/admin/horeca/home', [App\Http\Controllers\AdminController::class, 'horeca']);
-Route::get('/admin/sports/home', [App\Http\Controllers\AdminController::class, 'sports']);
-Route::get('/admin/users', [App\Http\Controllers\AdminController::class, 'users']);
 
-//Routes portail Horeca
+
+/******* ROUTES D'ADMINISTRATION *******/
+/**** HORECA ****/
+Route::get('/admin/horeca/home', [App\Http\Controllers\AdminController::class, 'horeca']);
+
+//Plats
+Route::get('/admin/horeca/dishes/list', [App\Http\Controllers\DishController::class, 'list']);
+Route::get('/admin/horeca/dishes/create', [App\Http\Controllers\DishController::class, 'create']);
+Route::get('/admin/horeca/dishes/edit/{id}', [App\Http\Controllers\DishController::class, 'edit']);
+Route::get('/admin/horeca/dishes/types/list', [App\Http\Controllers\DishController::class, 'listType']);
+Route::get('/admin/horeca/dishes/types/create', [App\Http\Controllers\DishController::class, 'createType']);
+Route::get('/admin/horeca/dishes/types/edit{id}', [App\Http\Controllers\DishController::class, 'editType']);
+
+//Boissons
+Route::get('/admin/horeca/drinks/list', [App\Http\Controllers\DrinkController::class, 'list']);
+Route::get('/admin/horeca/drinks/create', [App\Http\Controllers\DrinkController::class, 'create']);
+Route::get('/admin/horeca/drinks/edit/{id}', [App\Http\Controllers\DrinkController::class, 'edit']);
+Route::get('/admin/horeca/drinks/types/list', [App\Http\Controllers\DrinkController::class, 'listType']);
+Route::get('/admin/horeca/drinks/types/create', [App\Http\Controllers\DrinkController::class, 'createType']);
+Route::get('/admin/horeca/dishes/types/edit{id}', [App\Http\Controllers\DrinkController::class, 'editType']);
+
+//Actualités
+Route::get('/admin/horeca/news/list', [App\Http\Controllers\NewsController::class, 'list']);
+Route::get('/admin/horeca/news/create', [App\Http\Controllers\NewsController::class, 'create']);
+Route::get('/admin/horeca/news/one/{id}', [App\Http\Controllers\NewsController::class, 'one']);
+Route::get('/admin/horeca/news/edit/{id}', [App\Http\Controllers\NewsController::class, 'edit']);
+
+//Réservations
+Route::get('/admin/horeca/reservations/list', [App\Http\Controllers\ReservationController::class, 'listHoreca']);
+Route::get('/admin/horeca/reservations/one/{id}', [App\Http\Controllers\ReservationController::class, 'oneHoreca']);
+Route::get('/admin/horeca/reservations/edit/{id}', [App\Http\Controllers\ReservationController::class, 'editHoreca']);
+
+//Tables
+Route::get('/admin/horeca/tables/list', [App\Http\Controllers\TableController::class, 'list']);
+Route::get('/admin/horeca/tables/create', [App\Http\Controllers\TableController::class, 'create']);
+Route::get('/admin/horeca/tables/edit/{id}', [App\Http\Controllers\TableController::class, 'edit']);
+
+
+/**** SPORTS ****/
+Route::get('/admin/sports/home', [App\Http\Controllers\AdminController::class, 'sports']);
+
+//Terrains
+Route::get('/admin/sports/fields/list', [App\Http\Controllers\FieldController::class, 'list']);
+Route::get('/admin/sports/fields/create', [App\Http\Controllers\FieldController::class, 'create']);
+Route::get('/admin/sports/fields/edit/{id}', [App\Http\Controllers\FieldController::class, 'edit']);
+Route::post('fields/store', [App\Http\Controllers\FieldController::class, 'store']);
+Route::put('fields/update/{id}', [App\Http\Controllers\FieldController::class, 'update']);
+Route::get('fields/delete/{id}', [App\Http\Controllers\FieldController::class, 'delete']);
+Route::get('fields/filter', [App\Http\Controllers\FieldController::class, 'filter']);
+
+
+//Réservations
+Route::get('/admin/sports/reservations/list', [App\Http\Controllers\ReservationController::class, 'listSports']);
+Route::get('/admin/sports/reservations/one/{id}', [App\Http\Controllers\ReservationController::class, 'oneSports']);
+Route::get('/admin/sports/reservations/edit/{id}', [App\Http\Controllers\ReservationController::class, 'editSports']);
+
+
+/**** UTILISATEURS ****/
+Route::get('/admin/users', [App\Http\Controllers\ProfileController::class, 'list']);
+
+
+
+/******* ROUTES UTILISATEURS *******/
+/**** Portail Horeca ****/
 Route::get('/horeca/home', [App\Http\Controllers\HorecaController::class, 'home']);
 Route::get('/horeca/booking', [App\Http\Controllers\HorecaController::class, 'booking']);
 Route::get('/horeca/menu', [App\Http\Controllers\HorecaController::class, 'menu']);
 
-//Routes portail Sports
+
+/**** Portail Sports ****/
 Route::get('/sports/home', [App\Http\Controllers\SportsController::class, 'home']);
 Route::get('/sports/booking', [App\Http\Controllers\SportsController::class, 'booking']);
 Route::get('/sports/planning', [App\Http\Controllers\SportsController::class, 'planning']);
 
-//Routes gestion du profil
+
+/**** Gestion du profil ****/
 Route::get('/profile/one/{id}', [App\Http\Controllers\ProfileController::class, 'one']);
 Route::get('/profile/edit/{id}', [App\Http\Controllers\ProfileController::class, 'edit']);
 Route::get('/profile/reservations/{id}', [App\Http\Controllers\ProfileController::class, 'reservations']);

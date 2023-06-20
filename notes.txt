@@ -1,0 +1,5 @@
+Pagination:
+
+<div class="d-flex justify-content-center mt-5">
+    {{ $fields->onEachSide(1)->withQueryString()->links('pagination::bootstrap-4') }}
+</div>
