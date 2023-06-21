@@ -17,7 +17,7 @@
                             <label for="number" class="col-md-4 col-form-label text-md-end">{{ __("Numéro") }}</label>
 
                             <div class="col-md-6">
-                                <input id="number" type="text" class="form-control @error('name') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
+                                <input id="number" type="text" class="form-control @error('number') is-invalid @enderror" name="number" value="{{ old('number') }}" required autocomplete="number" autofocus>
 
                                 @error('number')
                                     <span class="invalid-feedback" role="alert">

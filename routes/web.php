@@ -33,19 +33,35 @@ Route::get('/admin/horeca/home', [App\Http\Controllers\AdminController::class, '
 
 //Plats
 Route::get('/admin/horeca/dishes/list', [App\Http\Controllers\DishController::class, 'list']);
+Route::get('/admin/horeca/dishes', [App\Http\Controllers\DishController::class, 'getDishes']);
+Route::get('/admin/horeca/dishes/filter', [App\Http\Controllers\DishController::class, 'filterDishes']);
 Route::get('/admin/horeca/dishes/create', [App\Http\Controllers\DishController::class, 'create']);
 Route::get('/admin/horeca/dishes/edit/{id}', [App\Http\Controllers\DishController::class, 'edit']);
-Route::get('/admin/horeca/dishes/types/list', [App\Http\Controllers\DishController::class, 'listType']);
+Route::post('dishes/store', [App\Http\Controllers\DishController::class, 'store']);
+Route::put('dishes/update/{id}', [App\Http\Controllers\DishController::class, 'update']);
+Route::get('dishes/delete/{id}', [App\Http\Controllers\DishController::class, 'delete']);
+
+Route::get('/admin/horeca/dishes/types/list', [App\Http\Controllers\DishController::class, 'getDishTypes']);
 Route::get('/admin/horeca/dishes/types/create', [App\Http\Controllers\DishController::class, 'createType']);
 Route::get('/admin/horeca/dishes/types/edit{id}', [App\Http\Controllers\DishController::class, 'editType']);
+Route::post('dishes/types/store', [App\Http\Controllers\DishController::class, 'storeType']);
+Route::post('dishes/types/update/{id}', [App\Http\Controllers\DishController::class, 'updateType']);
+Route::get('dishes/types/delete/{id}', [App\Http\Controllers\DishController::class, 'deleteType']);
 
 //Boissons
 Route::get('/admin/horeca/drinks/list', [App\Http\Controllers\DrinkController::class, 'list']);
 Route::get('/admin/horeca/drinks/create', [App\Http\Controllers\DrinkController::class, 'create']);
 Route::get('/admin/horeca/drinks/edit/{id}', [App\Http\Controllers\DrinkController::class, 'edit']);
+Route::post('drinks/store', [App\Http\Controllers\DrinkController::class, 'store']);
+Route::put('drinks/update/{id}', [App\Http\Controllers\DrinkController::class, 'update']);
+Route::get('drinks/delete/{id}', [App\Http\Controllers\DrinkController::class, 'delete']);
+
 Route::get('/admin/horeca/drinks/types/list', [App\Http\Controllers\DrinkController::class, 'listType']);
 Route::get('/admin/horeca/drinks/types/create', [App\Http\Controllers\DrinkController::class, 'createType']);
 Route::get('/admin/horeca/dishes/types/edit{id}', [App\Http\Controllers\DrinkController::class, 'editType']);
+Route::post('drinks/types/store', [App\Http\Controllers\DrinkController::class, 'storeType']);
+Route::put('drinks/types/update/{id}', [App\Http\Controllers\DrinkController::class, 'updateType']);
+Route::get('drinks/types/delete/{id}', [App\Http\Controllers\DrinkController::class, 'deleteType']);
 
 //Actualités
 Route::get('/admin/horeca/news/list', [App\Http\Controllers\NewsController::class, 'list']);

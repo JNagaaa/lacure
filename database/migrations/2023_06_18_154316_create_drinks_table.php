@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('drinks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('type_id');
+            $table->unsignedBigInteger('type_id')->nullable();
             $table->tinyText('description');
             $table->foreign('type_id')
                 ->references('id')
                 ->on('drink_types')
-                ->onDelete('cascade');
+                ->onDelete('set null');
             $table->timestamps();
         });
     }
