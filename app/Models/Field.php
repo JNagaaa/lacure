@@ -15,4 +15,5 @@ class Field extends Model
         'availability',
         'type',
     ];
+
 }

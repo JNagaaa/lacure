@@ -1,5 +1,8 @@
 import './bootstrap';
 import jQuery from 'jquery';
+
+
+
 window.$ = jQuery;
 
 
@@ -328,3 +331,360 @@ $(document).ready(function() {
         });
     });
 });
+
+
+
+
+
+
+
+
+$(document).ready(function() {
+    $('#searchInput').on('input', function() {
+        var searchTerm = $(this).val();
+
+        if (searchTerm.trim() === '') {
+            $('#users-list').empty(); // Effacer la liste des utilisateurs si la barre de recherche est vide
+            return;
+        }
+
+        $.ajax({
+            url: '/users/search',
+            type: 'GET',
+            data: { search: searchTerm },
+            success: function(response) {
+                var users = response.users;
+
+                var html = '';
+                for (var i = 0; i < users.length; i++) {
+                    var user = users[i];
+            
+                    // Utilisez la concaténation normale pour ajouter la variable user.id à l'URL
+                    var url = '/users/one/' + user.id;
+            
+                    html += '<a href="' + url + '">';
+                    html += '<li class="list-group-item d-flex justify-content-between align-items-center">';
+                    html += user.name + ' ' + user.lastname;
+                    html += '</li></a>';
+                }
+
+                $('#users-list').html(html);
+            }
+        });
+    });
+});
+
+
+
+
+
+$(document).ready(function() {
+    var isNewTimeslotAdded = false;
+    
+
+    $('#timeslotsContent').on('click', '#create', function() {
+        if(isNewTimeslotAdded){
+            $('#createTimeslot').empty();
+            isNewTimeslotAdded = false;
+        } else {
+            $.ajax({
+                url: '/admin/sports/timeslots/create',
+                type: 'GET',
+                success: function(response) {
+                    $('#createTimeslot').html(response);
+                    isNewTimeslotAdded = true;
+                }
+            });
+        }
+    });
+
+    $('#timeslotsContent').on('click', '.store-btn', function() {
+        // Sélectionner le formulaire et obtenir ses données sérialisées
+        event.preventDefault();
+        var formData = $('#createTimeslotForm').serialize();
+        console.log(formData);
+
+        // Envoi du formulaire via une requête AJAX
+        $.ajax({
+            url: '/timeslots/store',
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                // Si la requête réussit, ajouter le nouveau timeslot à la liste
+                // en utilisant les données de réponse reçues du serveur
+                var newTimeslot = '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                    '<span class="timeslot">' + response.startTime + ' -> ' + response.endTime + '</span>' +
+                    '<div>' +
+                    '<button type="button" class="edit-btn btn btn-warning active" role="button" data-id="' + response.id + '">Modifier</button>' +
+                    '<a href="/timeslots/delete/' + response.id + '" class="delete-btn btn btn-danger active" role="button" onclick="return confirm(\'Etes-vous sûr de vouloir supprimer cette plage horaire?\')">Supprimer</a>' +
+                    '</div>' +
+                    '<div class="edit-fields" style="display: none;">' +
+                    '<input type="text" class="start-time" value="' + response.startTime + '">' +
+                    '<input type="text" class="end-time" value="' + response.endTime + '">' +
+                    '<button type="button" class="update-btn btn btn-success" data-id="' + response.id + '">Enregistrer</button>' +
+                    '<button type="button" class="cancel-btn btn btn-danger">Annuler</button>' +
+                    '</div>' +
+                    '</li>';
+
+                $('#timeslotsContent').append(newTimeslot);
+
+                // Réinitialiser le formulaire pour permettre d'ajouter d'autres timeslots sans recharger la page
+                $('#createTimeslotForm')[0].reset();
+            },
+            error: function(error) {
+                // Gérer les erreurs en cas de problème avec la requête AJAX
+                console.error('Une erreur s\'est produite lors de la soumission du formulaire :', error);
+            }
+        });
+    });
+
+    $('#timeslotsContent').on('click', '.edit-btn', function() {
+        var $li = $(this).closest('li');
+        $li.find('.timeslot').hide();
+        $li.find('.edit-fields').show();
+        $li.find('.edit-btn').hide();
+        $li.find('.delete-btn').hide();
+    });
+    
+    $('#timeslotsContent').on('click', '.cancel-btn', function() {
+        var $li = $(this).closest('li');
+        $li.find('.timeslot').show();
+        $li.find('.edit-fields').hide();
+        $li.find('.edit-btn').show();
+        $li.find('.delete-btn').show();
+    });
+    
+    $('#timeslotsContent').on('click', '.update-btn', function() {
+        var $li = $(this).closest('li');
+        var timeslotId = $(this).data('id');
+        var startTime = $li.find('.start-time').val();
+        var endTime = $li.find('.end-time').val();
+        
+        $.ajax({
+            url: `/timeslots/update/${timeslotId}`,
+            type: 'POST',
+            data: {
+                start_time: startTime,
+                end_time: endTime,
+            },
+            
+            success: function() {
+                
+                var successMessage = '<div class="alert alert-success">Type de boisson modifié avec succès!</div>';
+                $('#success-message-container').html(successMessage);
+
+                
+            }
+        });
+    
+        // Une fois la mise à jour terminée, mettez à jour la vue avec les nouvelles valeurs
+        $li.find('.timeslot').text(startTime + ' -> ' + endTime).show();
+        $li.find('.edit-fields').hide();
+        $li.find('.edit-btn').show();
+        $li.find('.delete-btn').show();
+    });
+
+    $('#timeslotsContent').on('click', '.delete-btn', function() {
+        event.preventDefault();
+        var timeslotId = $(this).data('id');
+        var timeslotElement = document.getElementById('timeslot_' + timeslotId);
+    
+        // Afficher la fenêtre de confirmation
+        if (confirm('Etes-vous sûr de vouloir supprimer cette plage horaire?')) {
+            // Effectuer une action de suppression ici, par exemple en utilisant AJAX pour supprimer le timeslot dans la base de données
+            $.ajax({
+                url: `/timeslots/delete/${timeslotId}`,
+                type: 'GET',
+                data: {
+                    id: timeslotId
+                },
+                
+                success: function() {
+                    
+                    var successMessage = '<div class="alert alert-success">Type de boisson modifié avec succès!</div>';
+                    $('#success-message-container').html(successMessage);
+    
+                    
+                }
+            });
+            // Une fois la suppression réussie, supprimer le timeslot de la page
+            timeslotElement.remove();
+        }
+    });
+});
+
+
+$(document).ready(function() {
+    document.getElementById('bookingDate').addEventListener('change', function() {
+        const selectedDate = this.value;
+        const formattedDate = selectedDate.split('/').reverse().join('-');
+        const fieldType = document.getElementById('fieldTypeSelect').value;
+        const baseUrl = window.location.href.split('?')[0]; // Récupérer l'URL de base sans les paramètres
+
+        // Rediriger vers la même page avec la nouvelle date et le fieldType dans l'URL
+        window.location.href = `${baseUrl}?date=${formattedDate}`;
+    });
+
+    document.getElementById('fieldTypeSelect').addEventListener('change', function() {
+        const fieldType = this.value;
+        const selectedDate = document.getElementById('bookingDate').value;
+        const formattedDate = selectedDate.split('/').reverse().join('-');
+
+        // Effectuer la requête AJAX pour charger les terrains en fonction du type sélectionné
+        $.ajax({
+            url: `/setFieldType`,
+            type: 'POST',
+            data: {
+                fieldType: fieldType,
+                date: formattedDate
+            },
+            success: function(response) {
+                console.log(response);
+                // Afficher les terrains chargés dans le div "fieldsContainer"
+                $('#fieldsContainer').html(response); // Met à jour le contenu du div avec les terrains chargés
+            },
+            error: function() {
+                console.error('Raté!'); // Gérer les erreurs si besoin
+            }
+        });
+    });
+});
+
+
+
+$(document).ready(function() {
+    // Liste pour stocker les utilisateurs sélectionnés
+    const selectedUsers = [];
+
+    // Fonction pour effectuer la recherche d'utilisateurs
+    function searchUsers(inputId, listId) {
+        const searchTerm = $('#' + inputId).val();
+
+        if (searchTerm.trim() === '') {
+            // Si la barre de recherche est vide, vider la liste des résultats
+            $('#' + listId).empty();
+            return; // Sortir de la fonction sans effectuer la requête AJAX
+        }
+    
+        // Effectuer la requête AJAX pour chercher les utilisateurs
+        $.ajax({
+            url: '/searchUsers', // Assurez-vous d'ajuster le chemin d'accès en fonction de votre contrôleur
+            type: 'GET',
+            data: { term: searchTerm }, // Utiliser le terme de recherche saisi par l'utilisateur
+            success: function(response) {
+                // Afficher les résultats dans la liste déroulante
+                console.log(response);
+                const list = $('#' + listId);
+                list.empty();
+                response.forEach(function(user) {
+                    // Vérifier si l'utilisateur est déjà sélectionné
+                    let isAlreadySelected = false;
+                    for (const selectedUser of selectedUsers) {
+                        if (selectedUser === user.id) { // Comparer avec l'ID réel de l'utilisateur
+                            isAlreadySelected = true;
+                            break;
+                        }
+                    }
+                    if (!isAlreadySelected) {
+                        list.append(`<li class="search-result-item">${user.name} ${user.lastname}</li>`);
+                        // Ajouter l'ID réel de l'utilisateur comme attribut data-id du résultat de recherche
+                        list.children().last().attr('data-id', user.id);
+                    }
+                });
+            },
+            error: function() {
+                console.error('Erreur lors de la recherche d\'utilisateurs.');
+            }
+        });
+    }  
+
+    // Fonction pour ajouter un utilisateur sélectionné
+    function addUserToList(inputId, user) {
+        // Stocker l'utilisateur dans la liste des utilisateurs sélectionnés
+        selectedUsers.push(user.id); // Ici, user.id doit être l'ID réel de l'utilisateur obtenu à partir de la réponse de recherche
+        console.log(selectedUsers);
+        // Remplacer la barre de recherche par le nom de l'utilisateur sélectionné
+        const $searchWrapper = $('#' + inputId).closest('.search-wrapper');
+        $searchWrapper.empty();
+        $searchWrapper.append(`<span>${user.name} ${user.lastname} <button class="cancel-btn" data-id="${user.id}" data-list-id="${inputId}">Annuler</button></span>`);
+
+        const hiddenInputId = inputId.replace('search', 'selectedUsers');
+        $('#' + hiddenInputId).val(user.id);
+    }
+
+    function resetOtherSearchInputs(currentInputId) {
+        for (var i = 1; i <= 4; i++) {
+            const inputId = 'search' + i;
+            const resultId = 'userList' + i;
+            
+            if (inputId !== currentInputId) {
+                $('#' + inputId).val('');
+                $('#' + resultId).empty();
+            }
+
+        }
+    }
+
+    // Gérer l'événement "keyup" pour chaque barre de recherche
+    function setupSearchListener() {
+        for (var i = 1; i <= 4; i++) {
+            $('#search' + i).on('keyup', function() {
+                const inputId = $(this).attr('id');
+                const listId = $(this).data('id'); // Utiliser un attribut personnalisé pour identifier la liste des résultats
+                searchUsers(inputId, listId);
+            });
+    }}
+
+    setupSearchListener();
+
+    // Gérer l'événement de clic sur un résultat de recherche
+    $(document).on('click', 'li.search-result-item', function() {
+        const name = $(this).text();
+        const [firstName, lastName] = name.split(' ');
+    
+        // Ajouter l'utilisateur sélectionné à la liste des utilisateurs sélectionnés
+        const inputId = $(this).parent().siblings('.search-input').attr('id');
+        const userId = $(this).data('id'); // Obtenir l'ID réel de l'utilisateur à partir de l'attribut data-id
+        addUserToList(inputId, { id: userId, name: firstName, lastname: lastName });
+    
+        // Effacer le résultat sélectionné de la liste déroulante
+        $(this).remove();
+
+        resetOtherSearchInputs(inputId);
+
+        const hiddenInputId = inputId.replace('search', 'selectedUsers');
+        console.log(hiddenInputId);
+        $('#' + hiddenInputId).val(userId);
+    });
+
+    // Gérer l'événement de clic sur le bouton "Annuler"
+    $(document).on('click', '.cancel-btn', function() {
+        const userId = $(this).data('id');
+
+        // Supprimer l'utilisateur de la liste des utilisateurs sélectionnés
+        selectedUsers.splice(selectedUsers.findIndex(user => user.id === userId), 1);
+
+        // Remettre la barre de recherche à son état initial
+        const inputId = $(this).data('list-id');
+        const $searchWrapper = $(this).closest('.search-wrapper');
+        $searchWrapper.empty();
+        $searchWrapper.append(`
+            <input type="text" class="form-control search-input" id="${inputId}" data-id="userList${inputId.substr(inputId.length - 1)}">
+            <ul class="search-results" id="userList${inputId.substr(inputId.length - 1)}"></ul>
+        `);
+
+        setupSearchListener();
+
+        const hiddenInputId = inputId.replace('search', 'selectedUsers');
+        $('#' + hiddenInputId).val('');
+
+        resetOtherSearchInputs(inputId);
+
+        // Recharger les résultats de recherche pour masquer l'utilisateur supprimé
+        const listId = $(this).data('list-id').substr(inputId.length - 1);
+        searchUsers(inputId, listId);
+    });
+});
+
+
+

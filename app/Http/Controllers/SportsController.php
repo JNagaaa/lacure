@@ -2,7 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Field;
+use App\Models\Timeslot;
+use App\Models\Reservation;
+use App\Models\ReservationUser;
+use App\Models\User;
+use Illuminate\Support\Carbon;
+
+
+
 
 class SportsController extends Controller
 {
@@ -13,16 +23,90 @@ class SportsController extends Controller
     }
 
 
-    public function booking()
+    public function planning(Request $request)
     {
-        return view('sports/booking');
+        $date = $_GET['date'];
+        $fieldType = $request->input('fieldType', '');
+
+        $reservations = Reservation::where('section_id', 2)
+                                    ->where('date', $date)
+                                    ->get();
+
+        $timeslots = Timeslot::where('section_id', 2)->get();
+        $fields = Field::all();
+        return view('sports.planning', compact('fields', 'timeslots', 'reservations', 'date'));
     }
 
-
-    public function planning()
+    public function setFieldType(Request $request)
     {
-        return view('sports/planning');
+        $fieldType = $request->input('fieldType');
+
+        // Si le paramètre fieldType n'est pas présent ou vide, récupérer tous les terrains
+        if (empty($fieldType)) {
+            $fields = Field::all();
+        } else {
+            $fields = Field::where('type', $fieldType)->get();
+        }
+
+        $date = $request->input('date'); // Récupérer la date depuis la requête GET
+
+        $reservations = Reservation::where('section_id', 2)
+                                    ->where('date', $date)
+                                    ->get();
+        $timeslots = Timeslot::where('section_id', 2)->get();
+
+        // Passer toutes les données nécessaires à la vue "sports.fields"
+        return view('sports.fields', compact('fields', 'timeslots', 'reservations', 'date'));
     }
+
+    public function booking($date, $field_id, $timeslot_id, $fieldType)
+    {
+        $users = User::all();
+        return view('sports.booking', compact('date', 'field_id', 'timeslot_id', 'fieldType', 'users'));
+    }
+
+    public function searchUsers(Request $request)
+    {
+        $term = $request->input('term');
+
+        // Effectuer la recherche sur les utilisateurs par leur nom ou leur prénom
+        $users = User::where('name', 'LIKE', '%' . $term . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $term . '%')
+                    ->get();
+
+        return response()->json($users);
+    }
+
+    public function setBooking(Request $request)
+    {
+        
+        $reservation = new Reservation(
+            [
+                'date' => $request->input('date'),
+                'field_id' => $request->input('field_id'),
+                'timeslot_id' => $request->input('timeslot_id'),
+                'section_id' => 2,
+            ]);
+
+        $reservation->save();
+
+        $reservationId = $reservation->id;
+        
+        $users = $request->input('selectedUsers');
+        
+        foreach($users as $user)
+        {
+            $reservationUser = new ReservationUser(
+                [
+                    'user_id' => $user,
+                    'reservation_id' => $reservationId,
+                ]);
+
+            $reservationUser->save();
+        }
+        
+    }
+
 
 
 }

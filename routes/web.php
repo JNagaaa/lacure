@@ -80,6 +80,9 @@ Route::get('/admin/horeca/reservations/edit/{id}', [App\Http\Controllers\Reserva
 Route::get('/admin/horeca/tables/list', [App\Http\Controllers\TableController::class, 'list']);
 Route::get('/admin/horeca/tables/create', [App\Http\Controllers\TableController::class, 'create']);
 Route::get('/admin/horeca/tables/edit/{id}', [App\Http\Controllers\TableController::class, 'edit']);
+Route::post('tables/store', [App\Http\Controllers\TableController::class, 'store']);
+Route::put('tables/update/{id}', [App\Http\Controllers\TableController::class, 'update']);
+Route::get('tables/delete/{id}', [App\Http\Controllers\TableController::class, 'delete']);
 
 
 /**** SPORTS ****/
@@ -101,8 +104,20 @@ Route::get('/admin/sports/reservations/one/{id}', [App\Http\Controllers\Reservat
 Route::get('/admin/sports/reservations/edit/{id}', [App\Http\Controllers\ReservationController::class, 'editSports']);
 
 
+//Plages horaires
+Route::get('/admin/sports/timeslots/list', [App\Http\Controllers\TimeslotController::class, 'listSports']);
+Route::get('/admin/sports/timeslots/create', [App\Http\Controllers\TimeslotController::class, 'create']);
+Route::get('/admin/sports/timeslots/edit{id}', [App\Http\Controllers\TimeslotController::class, 'edit']);
+Route::post('timeslots/store', [App\Http\Controllers\TimeslotController::class, 'store']);
+Route::post('timeslots/update/{id}', [App\Http\Controllers\TimeslotController::class, 'update']);
+Route::get('timeslots/delete/{id}', [App\Http\Controllers\TimeslotController::class, 'delete']);
+
+
+
 /**** UTILISATEURS ****/
-Route::get('/admin/users', [App\Http\Controllers\ProfileController::class, 'list']);
+Route::get('/admin/users/list', [App\Http\Controllers\UserController::class, 'list']);
+Route::get('/users/search', [App\Http\Controllers\UserController::class, 'search']);
+
 
 
 
@@ -115,11 +130,17 @@ Route::get('/horeca/menu', [App\Http\Controllers\HorecaController::class, 'menu'
 
 /**** Portail Sports ****/
 Route::get('/sports/home', [App\Http\Controllers\SportsController::class, 'home']);
-Route::get('/sports/booking', [App\Http\Controllers\SportsController::class, 'booking']);
 Route::get('/sports/planning', [App\Http\Controllers\SportsController::class, 'planning']);
+Route::get('/getAvailableFieldsAndTimeslots', [App\Http\Controllers\SportsController::class, 'getAvailableFieldsAndTimeslots']);
+Route::post('/setFieldType', [App\Http\Controllers\SportsController::class, 'setFieldType']);
+Route::get('/booking/{date}/{field_id}/{timeslot_id}/{fieldType}', [App\Http\Controllers\SportsController::class, 'booking'])->name('booking');
+Route::get('/searchUsers', [App\Http\Controllers\SportsController::class, 'searchUsers']);
+Route::post('/bookingSports', [App\Http\Controllers\SportsController::class, 'setBooking']);
+
+
 
 
 /**** Gestion du profil ****/
-Route::get('/profile/one/{id}', [App\Http\Controllers\ProfileController::class, 'one']);
-Route::get('/profile/edit/{id}', [App\Http\Controllers\ProfileController::class, 'edit']);
-Route::get('/profile/reservations/{id}', [App\Http\Controllers\ProfileController::class, 'reservations']);
+Route::get('/users/edit/{id}', [App\Http\Controllers\UserController::class, 'edit']);
+Route::get('/users/one/{id}', [App\Http\Controllers\UserController::class, 'show']);
+Route::get('/users/reservations/{id}', [App\Http\Controllers\ProfileController::class, 'reservations']);

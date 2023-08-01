@@ -12,6 +12,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -65,7 +66,7 @@
                                             {{ __('Horeca') }}
                                         </a>
 
-                                        <a class="dropdown-item" href="{{ url('/admin/users') }}">
+                                        <a class="dropdown-item" href="{{ url('/admin/users/list') }}">
                                             {{ __('Utilisateurs') }}
                                         </a>
                                     </div>
@@ -82,7 +83,7 @@
                                         {{ __('Accueil') }}
                                     </a>
 
-                                    <a class="dropdown-item" href="{{ url('/sports/booking') }}">
+                                    <a class="dropdown-item" href="{{ url('/sports/planning?date=' . \Illuminate\Support\Carbon::today()->format('Y-m-d')) }}">
                                         {{ __('Réserver') }}
                                     </a>
 
@@ -119,7 +120,7 @@
                                 </a>
                                 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ url('/profile/one/'.Auth::user()->id) }}">
+                                    <a class="dropdown-item" href="{{ url('/users/one/'.Auth::user()->id) }}">
                                         {{ __('Mon profil') }}
                                     </a>
 

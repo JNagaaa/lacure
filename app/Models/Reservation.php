@@ -15,6 +15,7 @@ class Reservation extends Model
         'timeslot_id',
         'table_id',
         'field_id',
+        'section_id',
     ];
 
     public function users()

@@ -20,6 +20,11 @@
                                 Réservations
                             </a>
                         </li>
+                        <li>
+                            <a href='/admin/sports/timeslots/list'>
+                                Plages horaires
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
