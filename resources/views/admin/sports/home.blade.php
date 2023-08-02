@@ -25,6 +25,11 @@
                                 Plages horaires
                             </a>
                         </li>
+                        <li>
+                            <a href='/admin/sports/news/list'>
+                                Actualités
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

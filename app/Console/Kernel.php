@@ -7,12 +7,17 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+
+    protected $commands = [
+        \App\Console\Commands\ResetHrsRemaining::class,
+    ];
     /**
      * Define the application's command schedule.
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('user:reset-hrsremaining')->monthlyOn(1, '00:00');
+
     }
 
     /**
@@ -21,6 +26,11 @@ class Kernel extends ConsoleKernel
     protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
+
+        $this->app->booted(function () {
+            $schedule = $this->app->make(Schedule::class);
+            $schedule->command('user:reset-hrsremaining')->monthlyOn(1, '00:00');
+        });
 
         require base_path('routes/console.php');
     }

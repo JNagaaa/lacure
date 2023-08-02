@@ -9,6 +9,7 @@ use App\Models\Timeslot;
 use App\Models\Reservation;
 use App\Models\ReservationUser;
 use App\Models\User;
+use App\Models\News;
 use Illuminate\Support\Carbon;
 
 
@@ -19,7 +20,8 @@ class SportsController extends Controller
     
     public function home()
     {
-        return view('sports/home');
+        $allNews = News::all();
+        return view('sports/home', compact('allNews'));
     }
 
 
@@ -92,17 +94,23 @@ class SportsController extends Controller
 
         $reservationId = $reservation->id;
         
-        $users = $request->input('selectedUsers');
+        $userIds = $request->input('selectedUsers');
         
-        foreach($users as $user)
+        foreach($userIds as $userId)
         {
+            $userObject = User::find($userId);
+
             $reservationUser = new ReservationUser(
                 [
-                    'user_id' => $user,
+                    'user_id' => $userId,
                     'reservation_id' => $reservationId,
                 ]);
+            
+            $userObject->hrsremaining -= 1;
 
             $reservationUser->save();
+            $userObject->save();
+            
         }
         
     }

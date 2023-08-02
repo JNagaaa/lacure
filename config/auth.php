@@ -39,6 +39,7 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+            'middleware' => ['web', 'verified'],
         ],
     ],
 
@@ -97,6 +98,13 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+    ],
+
+
+    'verification' => [
+        'enabled' => true,
+        'table' => 'verification_tokens',
+        'expire' => 60,
     ],
 
     /*

@@ -1,5 +1,9 @@
 import './bootstrap';
 import jQuery from 'jquery';
+import tinymce from 'tinymce/tinymce';
+import 'tinymce/themes/silver/theme';
+
+
 
 
 
@@ -10,6 +14,15 @@ $.ajaxSetup({
     headers: {
        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
+ });
+
+ $(document).ready(function() {
+    tinymce.init({
+        selector: 'textarea.tinymce-editor',
+        plugins: 'advlist autolink lists link image charmap preview anchor',
+        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+
+    });
  });
 
 $(document).ready(function() {
