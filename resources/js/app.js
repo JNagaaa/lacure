@@ -701,3 +701,151 @@ $(document).ready(function() {
 
 
 
+
+
+
+$(document).ready(function() {
+    $('#dishesBtn').on('click', function() {
+        $.ajax({
+            url: '/horeca/menu/dishes',
+            type: 'GET',
+            success: function(response) {
+                $('#drinks').empty();
+                var dishes = response.dishes; // Accédez au tableau des plats
+                var dishTypes = response.dishTypes; // Accédez au tableau des types de plat
+                
+                
+                
+                // Création du select avec les options des types de plat
+                var html = '<select id="dishTypeSelect">';
+                html += '<option value="">Tous les plats</option>';
+                for (var i = 0; i < dishTypes.length; i++) {
+                    var dishType = dishTypes[i];
+                    html += '<option value="' + dishType.id + '">' + dishType.name + 's</option>';
+                }
+                html += '</select>';
+
+                // Creation of the dishes list div
+                html += '<div id="dishesList">';
+                html += '<div class="row">';
+
+                // Boucle pour afficher les plats
+                for (var i = 0; i < dishes.length; i++) {
+                    var dish = dishes[i];
+                    
+                    html += '<div class="card col mb-3 p-0 me-1 ms-1 text-center" style="min-width: 150px;">';
+                    html += '<div class="card-header">'
+                    html += dish.name;
+                    html += '</div><div class="card-body me-2 ms-2">'
+                    html += dish.description;
+                    html += '<br>';
+                    html += dish.price;
+                    html += 'euros</div></div>';
+                }
+
+                html += '</div></div>'; // closing the div here
+
+                $('#dishes').html(html);
+
+                $('#dishTypeSelect').on('change', function() {
+                    var selectedType = $(this).val();
+                    
+                    $.ajax({
+                        url: '/admin/horeca/dishes/filter',
+                        type: 'GET',
+                        data: { type: selectedType },
+                        success: function(response) {
+                            var filteredDishes = response.dishesByType.data;
+                            var html = '<div class="row">';
+                            for (var i = 0; i < filteredDishes.length; i++) {
+                                var dish = filteredDishes[i];
+                                html += '<div class="card col mb-3 me-1 ms-1 p-0 text-center" style="min-width: 150px;">';
+                                html += '<div class="card-header">'
+                                html += dish.name;
+                                html += '</div><div class="card-body">'
+                                html += dish.description;
+                                html += '<br>';
+                                html += dish.price;
+                                html += 'euros</div></div>';
+                            }
+                            html += '</div>';
+                            $('#dishesList').html(html);
+                        }
+                    });
+                });
+            }
+        });
+    });
+});
+
+
+$(document).ready(function() {
+    $('#drinksBtn').on('click', function() {
+        $.ajax({
+            url: '/horeca/menu/drinks',
+            type: 'GET',
+            success: function(response) {
+                $('#dishes').empty();
+                var drinks = response.drinks; // Accédez au tableau des plats
+                var drinkTypes = response.drinkTypes; // Accédez au tableau des types de plat
+                
+                
+                
+                // Création du select avec les options des types de plat
+                var html = '<select id="drinkTypeSelect">';
+                html += '<option value="">Toutes les boissons</option>';
+                for (var i = 0; i < drinkTypes.length; i++) {
+                    var drinkType = drinkTypes[i];
+                    html += '<option value="' + drinkType.id + '">' + drinkType.name + 's</option>';
+                }
+                html += '</select>';
+
+                // Creation of the drinks list div
+                html += '<div id="drinksList">';
+                html += '<div class="row">';
+
+                // Boucle pour afficher les plats
+                for (var i = 0; i < drinks.length; i++) {
+                    var drink = drinks[i];
+                    
+                    html += '<div class="card col mb-3 p-0 me-1 ms-1 text-center" style="min-width: 150px;">';
+                    html += '<div class="card-header">'
+                    html += drink.name;
+                    html += '</div><div class="card-body me-2 ms-2">'
+                    html += drink.description;
+                    html += '</div></div>';
+                }
+
+                html += '</div></div>'; // closing the div here
+
+                $('#drinks').html(html);
+
+                $('#drinkTypeSelect').on('change', function() {
+                    var selectedType = $(this).val();
+                    
+                    $.ajax({
+                        url: '/admin/horeca/drinks/filter',
+                        type: 'GET',
+                        data: { type: selectedType },
+                        success: function(response) {
+                            var filteredDrinks = response.drinksByType.data;
+                            var html = '<div class="row">';
+                            for (var i = 0; i < filteredDrinks.length; i++) {
+                                var drink = filteredDrinks[i];
+                                html += '<div class="card col mb-3 me-1 ms-1 p-0 text-center" style="min-width: 150px;">';
+                                html += '<div class="card-header">'
+                                html += drink.name;
+                                html += '</div><div class="card-body">'
+                                html += drink.description;
+                                html += '<br>';
+                                html += '</div></div>';
+                            }
+                            html += '</div>';
+                            $('#drinksList').html(html);
+                        }
+                    });
+                });
+            }
+        });
+    });
+});

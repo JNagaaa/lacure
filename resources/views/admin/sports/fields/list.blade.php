@@ -27,15 +27,17 @@
                         <option value="Padel">Terrains de Padel</option>
                     </select>
                     
-                    <div id="fields-list">
+                    <div class="row" id="fields-list">
                         @foreach($fields as $field)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ __("Terrain numéro $field->number") }}
-                                <div>
-                                    <a href="{{ url('/admin/sports/fields/edit/'.$field->id) }}" class="btn btn-warning active" role="button">Modifier</a>
-                                    <a href="{{ url('fields/delete/'.$field->id) }}" class="btn btn-danger active" role="button" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce terrain?')">Supprimer</a>
-                                </div>
-                            </li>
+                            <div class="col">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    {{ __("Terrain numéro $field->number") }}
+                                    <div>
+                                        <a href="{{ url('/admin/sports/fields/edit/'.$field->id) }}" class="btn btn-warning active" role="button">Modifier</a>
+                                        <a href="{{ url('fields/delete/'.$field->id) }}" class="btn btn-danger active" role="button" onclick="return confirm('Etes-vous sûr de vouloir supprimer ce terrain?')">Supprimer</a>
+                                    </div>
+                                </li>
+                            </div>
                         @endforeach
                     </div>
 

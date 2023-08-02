@@ -45,6 +45,15 @@ class AdminController extends Controller
         return redirect('/admin/sports/news/edit/' . $id)->with('success', 'Actualité modifiée avec succès!');
     }
 
+    public function deleteNews($id)
+    {
+        $news = News::find($id);
+
+        $news->delete();
+
+        return redirect('/admin/sports/news/list')->with('success', 'Actualité supprimée avec succès!');
+    }
+
 
     //Gestion des utilisateurs
     public function users()

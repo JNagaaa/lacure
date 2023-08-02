@@ -8,9 +8,11 @@
                 <div class="card-header">{{ __('Portail actualités') }}</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                    @if (\Session::has('success'))
+                        <div class="alert alert-success">
+                            <ul>
+                                <li>{!! \Session::get('success') !!}</li>
+                            </ul>
                         </div>
                     @endif
 

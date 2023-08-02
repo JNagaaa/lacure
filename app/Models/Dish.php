@@ -16,4 +16,9 @@ class Dish extends Model
         'description',
         'price',
     ];
+
+    public function type()
+    {
+        return $this->belongsTo(DishType::class, 'type_id');
+    }
 }

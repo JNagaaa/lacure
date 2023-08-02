@@ -57,7 +57,16 @@
                                 </button>
                             </div>
                         </div>
+
+                        
                     </form>
+                    <div class="row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button class="btn btn-primary">
+                                <a href="{{ url('admin/sports/news/delete/'.$news->id) }}" role="button" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette actualité?')" style="text-decoration: none; color: white;">Supprimer</a>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

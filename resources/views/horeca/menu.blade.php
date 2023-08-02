@@ -8,8 +8,20 @@
                 <div class="card-header">{{ __('Menu') }}</div>
 
                 <div class="card-body">
-                    {{ __('Consultez votre menu ici') }}
-                </div>
+
+                    <div class="text-center pb-3">
+                        <button id="dishesBtn">Afficher les plats</button>
+                        <button id="drinksBtn">Afficher les boissons</button>
+                    </div>
+
+                    <div id="dishes">
+                        
+                    </div>
+
+                    <div id="drinks">
+                        
+                    </div>
+                    
             </div>
         </div>
     </div>

@@ -117,6 +117,7 @@ Route::get('timeslots/delete/{id}', [App\Http\Controllers\TimeslotController::cl
 Route::get('admin/sports/news/list', [App\Http\Controllers\AdminController::class, 'listNews'])->middleware('verified');
 Route::get('admin/sports/news/create', [App\Http\Controllers\NewsController::class, 'create'])->middleware('verified');
 Route::get('admin/sports/news/edit/{id}', [App\Http\Controllers\AdminController::class, 'editNews'])->middleware('verified');
+Route::get('admin/sports/news/delete/{id}', [App\Http\Controllers\AdminController::class, 'deleteNews'])->middleware('verified');
 Route::post('news/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('verified');
 Route::put('news/update/{id}', [App\Http\Controllers\AdminController::class, 'updateNews'])->middleware('verified');
 Route::get('news/delete/{id}', [App\Http\Controllers\NewsController::class, 'delete'])->middleware('verified');
@@ -136,7 +137,10 @@ Route::get('/users/search', [App\Http\Controllers\UserController::class, 'search
 Route::get('/horeca/home', [App\Http\Controllers\HorecaController::class, 'home'])->middleware('verified');
 Route::get('/horeca/booking', [App\Http\Controllers\HorecaController::class, 'booking'])->middleware('verified');
 Route::get('/horeca/menu', [App\Http\Controllers\HorecaController::class, 'menu'])->middleware('verified');
-
+Route::get('/horeca/menu/dishes', [App\Http\Controllers\HorecaController::class, 'getDishes'])->middleware('verified');
+Route::get('/horeca/menu/dishes/filter', [App\Http\Controllers\HorecaController::class, 'filterDishes'])->middleware('verified');
+Route::get('/horeca/menu/drinks', [App\Http\Controllers\HorecaController::class, 'getDrinks'])->middleware('verified');
+Route::get('/horeca/menu/drinks/filter', [App\Http\Controllers\HorecaController::class, 'filterDrinks'])->middleware('verified');
 
 /**** Portail Sports ****/
 Route::get('/sports/home', [App\Http\Controllers\SportsController::class, 'home'])->middleware('verified');
