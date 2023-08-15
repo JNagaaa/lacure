@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Notifications\DatabaseNotification;
+
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -30,7 +32,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function reservations()
     {
-        return $this->belongsToMany(Reservation::class);
+        return $this->belongsToMany(Reservation::class, 'reservation_user');
+    }
+
+    public function notifications()
+    {
+        return $this->morphMany(DatabaseNotification::class, 'notifiable')->orderBy('created_at', 'desc');
     }
 
     /**

@@ -32,6 +32,19 @@ class UserController extends Controller
         return redirect('/admin/users/list/' . $id)->with('success', 'Utilisateur modifié avec succès!');
     }
 
+    public function update(Request $request, $id)
+    {
+        $user = User::Find($id);
+        
+        $user->name = $request->name;
+        $user->lastname = $request->lastname;
+        $user->newsletter = $request->has('newsletter') ? 1 : 0;
+
+        $user->update();
+
+        return redirect('/users/one/' . $id)->with('success', 'Profil modifié avec succès!');
+    }
+
     public function search(Request $request)
     {
         $searchTerm = $request->input('search');

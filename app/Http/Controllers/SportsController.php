@@ -11,6 +11,8 @@ use App\Models\ReservationUser;
 use App\Models\User;
 use App\Models\News;
 use Illuminate\Support\Carbon;
+use App\Notifications\ReservationNotification;
+use Illuminate\Support\Facades\Notification;
 
 
 
@@ -110,8 +112,10 @@ class SportsController extends Controller
 
             $reservationUser->save();
             $userObject->save();
-            
         }
+
+        $admins = User::where('admin', 1)->get();
+        Notification::send($admins, new ReservationNotification($reservation));
         
     }
 

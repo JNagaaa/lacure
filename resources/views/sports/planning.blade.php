@@ -16,8 +16,13 @@
             <div class="row" id="fieldsContainer">
                 @foreach($fields as $field)
                     <div class="card col mb-3 me-1 p-0 text-center" style="min-width: 150px;">
-                        <div class="card-header">
+                        <div class="card-header" style="height: 130px;">
                             <h3>Terrain {{ $field->number }}</h3>
+                            @if($field->type == "Tennis")
+                                <img src='{{ asset('src/img/tennis.webp') }}' style="width: 100px; padding-top: 10px;"/>
+                            @else
+                                <img src='{{ asset('src/img/padel.png') }}' style="width: 85px;"/>   
+                            @endif
                         </div>
 
                         <div class="card-body me-1 ms-1">
@@ -30,9 +35,7 @@
                                         foreach ($reservations as $reservation) {
                                             if ($reservation->timeslot_id === $timeslot->id && $reservation->field_id === $field->id) {
                                                 $isTimeslotAvailable = false;
-                                                // Vous pouvez récupérer les noms des utilisateurs associés à cette réservation si nécessaire
-                                                // $reservationUsers = $reservation->users->pluck('name')->toArray();
-                                                break;
+                                                $reservationUsers = $reservation->users->pluck('lastname')->toArray();
                                             }
                                         }
                                     }

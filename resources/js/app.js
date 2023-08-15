@@ -4,9 +4,6 @@ import tinymce from 'tinymce/tinymce';
 import 'tinymce/themes/silver/theme';
 
 
-
-
-
 window.$ = jQuery;
 
 
@@ -24,6 +21,103 @@ $.ajaxSetup({
 
     });
  });
+
+ $(document).ready(function() {
+    $.ajax({
+        url: '/notifications/unread', 
+        method: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            const numberNotif = document.getElementById('numberNotif');
+            numberNotif.append(response.numberNotif);
+        }
+    });
+});
+            
+
+$(document).ready(function() {
+    document.getElementById('notifications-dropdown').addEventListener('click', function(event) {
+        event.preventDefault(); // Empêche le comportement par défaut du lien
+        
+        $.ajax({
+            url: '/notifications/unread', 
+            method: 'GET',
+            dataType: 'json',
+            success: function(response) {
+                const notificationsList = document.getElementById('notifications-list');
+                notificationsList.innerHTML = ''; // Nettoie la liste des notifications précédentes
+
+                const notifications = response.notifications;
+                notifications.forEach(notification => {
+                    const notificationItem = document.createElement('div');
+                    notificationItem.classList.add('notification-item');
+                    
+                    
+                    // Calcule le temps écoulé
+                    const createdAt = new Date(notification.created_at);
+                    const now = new Date();
+                    const diffInSeconds = Math.floor((now - createdAt) / 1000);
+
+                    // Fonction pour afficher le temps écoulé en français
+                    const formatTimeAgo = (value, unit) => {
+                        if (value === 1) {
+                            return value + ' ' + unit;
+                        } else {
+                            return value + ' ' + unit + 's';
+                        }
+                    };
+
+                    let timeAgo = '';
+                    if (diffInSeconds < 60) {
+                        timeAgo = formatTimeAgo(diffInSeconds, 'seconde');
+                    } else if (diffInSeconds < 3600) {
+                        const diffInMinutes = Math.floor(diffInSeconds / 60);
+                        timeAgo = formatTimeAgo(diffInMinutes, 'minute');
+                    } else if (diffInSeconds < 86400) {
+                        const diffInHours = Math.floor(diffInSeconds / 3600);
+                        timeAgo = formatTimeAgo(diffInHours, 'heure');
+                    } else if (diffInSeconds < 2592000) {
+                        const diffInDays = Math.floor(diffInSeconds / 86400);
+                        timeAgo = formatTimeAgo(diffInDays, 'jour');
+                    } else if (diffInSeconds < 31536000) {
+                        const diffInMonths = Math.floor(diffInSeconds / 2592000);
+                        timeAgo = formatTimeAgo(diffInMonths, 'mois');
+                    } else {
+                        const diffInYears = Math.floor(diffInSeconds / 31536000);
+                        timeAgo = formatTimeAgo(diffInYears, 'an');
+                    }
+
+                    notificationItem.innerHTML = `
+                        ${notification.data.message} (Il y a ${timeAgo})</div></a>
+                    `;
+
+
+                    notificationItem.addEventListener('click', function() {
+                        // Marquer la notification comme lue
+                        $.ajax({
+                            url: `notifications/mark-as-read/${notification.id}`,
+                            method: 'PUT',
+                            dataType: 'json',
+                            success: function() {
+                                // Mettre à jour l'affichage des notifications non lues
+                                fetchUnreadNotifications();
+                            },
+                            error: function(error) {
+                                console.error(error);
+                            }
+                        });
+                    });
+                    notificationsList.appendChild(notificationItem);
+                });
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    });
+});
+
+
 
 $(document).ready(function() {
     $('#field-type').on('change', function() {
@@ -849,3 +943,19 @@ $(document).ready(function() {
         });
     });
 });
+
+
+$(document).ready(function() {
+    document.getElementById('bookingTableDate').addEventListener('change', function() {
+        const selectedDate = this.value;
+        const formattedDate = selectedDate.split('/').reverse().join('-');
+        const baseUrl = window.location.href.split('?')[0]; // Récupérer l'URL de base sans les paramètres
+
+        // Rediriger vers la même page avec la nouvelle date et le fieldType dans l'URL
+        window.location.href = `${baseUrl}?date=${formattedDate}`;
+    });
+});
+
+
+
+

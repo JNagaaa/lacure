@@ -9,6 +9,8 @@ class ReservationUser extends Model
 {
     use HasFactory;
 
+    protected $table = "reservation_user";
+
     public $timestamps = false;
 
     protected $fillable = [

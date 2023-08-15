@@ -131,16 +131,31 @@ Route::get('/users/search', [App\Http\Controllers\UserController::class, 'search
 
 
 
+/**** DIVERS ****/
+
+
+Route::get('/sports/reservations/one/{id}', [App\Http\Controllers\ReservationController::class, 'show'])->name('reservation.show');
+Route::get('notifications/fetch', [App\Http\Controllers\NotificationController::class, 'fetch'])->name('notifications.fetch');
+Route::get('/notifications/unread', [App\Http\Controllers\NotificationController::class, 'getUnreadNotifications']);
+Route::put('notifications/mark-as-read/{notification}', [App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
+
+
+
+
+
+
 
 /******* ROUTES UTILISATEURS *******/
 /**** Portail Horeca ****/
 Route::get('/horeca/home', [App\Http\Controllers\HorecaController::class, 'home'])->middleware('verified');
-Route::get('/horeca/booking', [App\Http\Controllers\HorecaController::class, 'booking'])->middleware('verified');
+Route::get('/bookingTable/{date}/{table_id}/{timeslot_id}', [App\Http\Controllers\HorecaController::class, 'bookingTable'])->name('bookingTable')->middleware('verified');
 Route::get('/horeca/menu', [App\Http\Controllers\HorecaController::class, 'menu'])->middleware('verified');
 Route::get('/horeca/menu/dishes', [App\Http\Controllers\HorecaController::class, 'getDishes'])->middleware('verified');
 Route::get('/horeca/menu/dishes/filter', [App\Http\Controllers\HorecaController::class, 'filterDishes'])->middleware('verified');
 Route::get('/horeca/menu/drinks', [App\Http\Controllers\HorecaController::class, 'getDrinks'])->middleware('verified');
 Route::get('/horeca/menu/drinks/filter', [App\Http\Controllers\HorecaController::class, 'filterDrinks'])->middleware('verified');
+Route::get('/horeca/planning', [App\Http\Controllers\HorecaController::class, 'planning'])->middleware('verified');
+Route::get('/getAvailableTablesAndTimeslots', [App\Http\Controllers\HorecaController::class, 'getAvailableFieldsAndTimeslots'])->middleware('verified');
 
 /**** Portail Sports ****/
 Route::get('/sports/home', [App\Http\Controllers\SportsController::class, 'home'])->middleware('verified');
@@ -159,4 +174,5 @@ Route::get('sports/news/one/{id}', [App\Http\Controllers\NewsController::class, 
 /**** Gestion du profil ****/
 Route::get('/users/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->middleware('verified');
 Route::get('/users/one/{id}', [App\Http\Controllers\UserController::class, 'show'])->middleware('verified');
+Route::post('/users/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->middleware('verified');
 Route::get('/users/reservations/{id}', [App\Http\Controllers\ProfileController::class, 'reservations'])->middleware('verified');
