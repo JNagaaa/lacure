@@ -155,6 +155,7 @@ Route::put('notifications/mark-as-read/{notification}', [App\Http\Controllers\No
 /**** Portail Horeca ****/
 Route::get('/horeca/home', [App\Http\Controllers\HorecaController::class, 'home'])->middleware('verified');
 Route::get('/bookingTable/{date}/{table_id}/{timeslot_id}', [App\Http\Controllers\HorecaController::class, 'booking'])->name('bookingTable')->middleware('verified');
+Route::post('/bookingHoreca', [App\Http\Controllers\HorecaController::class, 'setBooking'])->middleware('verified');
 Route::get('/horeca/menu', [App\Http\Controllers\HorecaController::class, 'menu'])->middleware('verified');
 Route::get('/horeca/menu/dishes', [App\Http\Controllers\HorecaController::class, 'getDishes'])->middleware('verified');
 Route::get('/horeca/menu/dishes/filter', [App\Http\Controllers\HorecaController::class, 'filterDishes'])->middleware('verified');
@@ -182,3 +183,13 @@ Route::get('/users/edit/{id}', [App\Http\Controllers\UserController::class, 'edi
 Route::get('/users/one/{id}', [App\Http\Controllers\UserController::class, 'show'])->middleware('verified');
 Route::post('/users/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->middleware('verified');
 Route::get('/users/reservations/{id}', [App\Http\Controllers\ProfileController::class, 'reservations'])->middleware('verified');
+
+Route::get('storage/{file}', function ($file) {
+    $path = storage_path('app' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . $file);
+    return response()->file($path);
+});
+
+Route::get('images/{file}', function ($file) {
+    $path = storage_path('app' . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . $file);
+    return response()->file($path);
+});

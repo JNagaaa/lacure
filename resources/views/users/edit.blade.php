@@ -8,8 +8,28 @@
                 <div class="card-header">{{ __('Modification du profil') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('users/update/'.$user->id) }}">
+                    <form method="POST" action="{{ url('users/update/'.$user->id) }}" enctype="multipart/form-data">
                         @csrf
+
+                        @if(Auth::user()->admin == 1)
+                            <div class="row mb-3">              
+                                <div class="form-check">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" name="admin" type="checkbox" @if($user->admin == 1) checked @endif @if($user->id == 1) disabled @endif>
+                                        <label class="form-check-label" >Administrateur</label>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+
+                        <div style="text-align:center;">
+                            @if($user->image != NULL)
+                                <img src="{{url('storage/'.$user->image)}}" id="imgshow" style="width:120px; height:120px; border-radius:50%;">
+                            @else
+                                <img src="{{url('images/default.png')}}" id="imgshow" style="width:120px; height:120px; border-radius:50%;">
+                            @endif
+                        </div>
+                        <br>
 
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nom') }}</label>
@@ -36,6 +56,14 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image de profil') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="imgload" type="file" class="form-control" name="image" onchange="onFileSelected(event)">
                             </div>
                         </div>
 

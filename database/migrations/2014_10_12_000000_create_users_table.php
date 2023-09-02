@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->string('email')->unique();
+            $table->string('image')->nullable();
             $table->boolean('newsletter');
             $table->integer('hrsremaining');
             $table->boolean('admin');

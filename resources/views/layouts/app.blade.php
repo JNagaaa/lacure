@@ -96,7 +96,7 @@
 
                                 @if(Auth::user()->admin == 1)
                                     <li class="nav-item dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top:15px;" v-pre>
                                             {{ __('Interface administrateur') }}
                                         </a>
 
@@ -118,7 +118,7 @@
 
                                 
                                 <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top:15px;" v-pre>
                                         {{ __('Sports') }}
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -134,7 +134,7 @@
                                 </li>
 
                                 <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top:15px;" v-pre>
                                         {{ __('Horeca') }}
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -156,6 +156,11 @@
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }}
+                                        @if(Auth::user()->image != NULL)
+                                        <img style="width:50px; height:50px; border-radius:50%; margin-left:5px;" src="{{url('storage/'.Auth::user()->image)}}">
+                                        @else
+                                            <img style="width:50px; height:50px; border-radius:50%; margin-left:5px;" src="{{url('images/default.png')}}">
+                                        @endif
                                     </a>
                                     
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -180,7 +185,7 @@
                                 </li>
 
                                 <li class="nav-item dropdown">
-                                    <a id="notifications-dropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <a id="notifications-dropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top:15px;">
                                         <i class="bi bi-bell"></i>
                                         <span id="numberNotif" class="badge bg-danger"></span>
                                     </a>

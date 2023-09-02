@@ -11,9 +11,9 @@
                     <form action="{{ url('bookingHoreca') }}" method="POST">
                         @csrf
 
-                        {{-- Champs cachés pour stocker les valeurs de $data, $field_id et $timeslot_id --}}
+                        {{-- Champs cachés pour stocker les valeurs de $data, $table_id et $timeslot_id --}}
                         <input type="hidden" name="date" value="{{ $date }}">
-                        <input type="hidden" name="field_id" value="{{ $table_id }}">
+                        <input type="hidden" name="table_id" value="{{ $table_id }}">
                         <input type="hidden" name="timeslot_id" value="{{ $timeslot_id }}">
 
                         <div class="row mb-3">

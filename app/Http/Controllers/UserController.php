@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
+
 
 class UserController extends Controller
 {
@@ -39,6 +41,22 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->lastname = $request->lastname;
         $user->newsletter = $request->has('newsletter') ? 1 : 0;
+
+        if($user->id != 1){
+            $user->admin = $request->input('admin') == "on" ? 1 : 0;
+        }
+
+        if($request->image != NULL)
+        {
+            Storage::delete('images/'.$user->image);
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            ]);
+            $imageName = time().'.'.$request->image->extension();
+            
+            $user->image = $imageName;
+            $request->image->storeAs('images', $imageName);
+        }
 
         $user->update();
 

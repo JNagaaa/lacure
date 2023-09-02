@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -64,9 +65,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $request = new Request($data);
+
+        if($request->image != NULL)
+        {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            ]);
+
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->storeAs('images', $imageName);
+        }
+
         $user = new User([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
+            'image' => $request->image == NULL ? NULL : $imageName,
             'email' => $data['email'],
             'hrsremaining' => 0,
             'admin' => '0',

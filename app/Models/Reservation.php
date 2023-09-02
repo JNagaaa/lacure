@@ -15,6 +15,8 @@ class Reservation extends Model
         'timeslot_id',
         'table_id',
         'field_id',
+        'phone',
+        'comment',
         'section_id',
     ];
 

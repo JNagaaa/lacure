@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Inscription') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row mb-3">
@@ -35,6 +35,23 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div style="text-align:center;">
+                            <img src="{{ url('/images/default.png') }}" id="imgshow" style="width:120px; height:120px; border-radius:50%; margin-bottom:10px;">
+                        </div>
+                        <div class="row mb-3">
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image de profil') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="imgload" type="file" class="form-control" name="image">
+
+                                @error('imgload')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>

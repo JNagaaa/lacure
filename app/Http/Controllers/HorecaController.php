@@ -28,15 +28,19 @@ class HorecaController extends Controller
         return view('horeca.booking', compact('date', 'table_id', 'timeslot_id'));
     }
 
-    public function bookingTable(Request $request)
+    public function setBooking(Request $request)
     {
+
         $reservation = new Reservation(
             [
                 'date' => $request->date,
                 'table_id' => $request->table_id,
                 'timeslot_id' => $request->timeslot_id,
+                'phone' => $request->phone ? $request->phone : NULL,
+                'comment' => $request->comment ? $request->comment : NULL,
                 'section_id' => 1,
             ]);
+        
         
         $reservation->save();
 
