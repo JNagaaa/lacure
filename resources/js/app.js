@@ -970,6 +970,7 @@ $(document).ready(function() {
                 // Creation of the dishes list div
                 html += '<div id="dishesList">';
                 html += '<div class="row">';
+                var baseUrl = $('#dishes').data('base-url');
 
                 // Boucle pour afficher les plats
                 for (var i = 0; i < dishes.length; i++) {
@@ -977,6 +978,7 @@ $(document).ready(function() {
                     
                     html += '<div class="card col mb-3 p-0 me-1 ms-1 text-center" style="min-width: 150px;">';
                     html += '<div class="card-header">'
+                    html += '<img src="' + baseUrl + '/' + dish.image + '" style="width:100px; height:100px; border-radius:10%;"/><br>';
                     html += dish.name;
                     html += '</div><div class="card-body me-2 ms-2">'
                     html += dish.description;
@@ -997,14 +999,16 @@ $(document).ready(function() {
                         type: 'GET',
                         data: { type: selectedType },
                         success: function(response) {
+                            var baseUrl = $('#dishes').data('base-url');
                             var filteredDishes = response.dishesByType.data;
                             var html = '<div class="row">';
                             for (var i = 0; i < filteredDishes.length; i++) {
                                 var dish = filteredDishes[i];
-                                html += '<div class="card col mb-3 me-1 ms-1 p-0 text-center" style="min-width: 150px;">';
+                                html += '<div class="card col mb-3 p-0 me-1 ms-1 text-center" style="min-width: 150px;">';
                                 html += '<div class="card-header">'
+                                html += '<img src="' + baseUrl + '/' + dish.image + '" style="width:100px; height:100px; border-radius:10%;"/><br>';
                                 html += dish.name;
-                                html += '</div><div class="card-body">'
+                                html += '</div><div class="card-body me-2 ms-2">'
                                 html += dish.description;
                                 html += '<br>';
                                 html += dish.price;

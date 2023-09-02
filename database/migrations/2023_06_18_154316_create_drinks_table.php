@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('drinks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image')->nullable();
             $table->unsignedBigInteger('type_id')->nullable();
             $table->tinyText('description');
             $table->foreign('type_id')

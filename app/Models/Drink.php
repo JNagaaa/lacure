@@ -12,6 +12,7 @@ class Drink extends Model
     protected $fillable = [
         'id',
         'name',
+        'image',
         'type_id',
         'description',
     ];

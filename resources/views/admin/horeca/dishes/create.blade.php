@@ -9,7 +9,7 @@
 
                 <div class="card-body">
                     <a href="/admin/horeca/dishes/list">{{ __("Retour à la liste des plats")}}</a>
-                    <form method="POST" action="{{ url('dishes/store') }}">
+                    <form method="POST" action="{{ url('dishes/store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row mb-3">
@@ -23,6 +23,23 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div style="text-align:center;">
+                            <img src="{{ url('/images/defaultPlate.png') }}" id="imgshow" style="width:120px; height:120px; border-radius:10%; margin-bottom:10px;">
+                        </div>
+                        <div class="row mb-3">
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Photo') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="imgload" type="file" class="form-control" name="image">
+
+                                @error('imgload')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Dish;
 use App\Models\DishType;
+use Illuminate\Support\Facades\Storage;
+
 
 class DishController extends Controller
 {
@@ -71,10 +73,21 @@ class DishController extends Controller
 
     public function store(Request $request)
     {
+        if($request->image != NULL)
+        {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            ]);
+
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->storeAs('images', $imageName);
+        }
+
         $dish = new Dish(
         [
             'name' => $request->name,
             'type_id' => $request->type_id,
+            'image' => $request->image == NULL ? 'defaultPlate.png' : $imageName,
             'price' => $request->price,
             'description' => $request->description,
         ]);
@@ -104,6 +117,18 @@ class DishController extends Controller
         $dish->type_id = $request->type_id;
         $dish->price = $request->price;
         $dish->description = $request->description;
+
+        if($request->image != NULL)
+        {
+            Storage::delete('images/'.$dish->image);
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            ]);
+            $imageName = time().'.'.$request->image->extension();
+            
+            $dish->image = $imageName;
+            $request->image->storeAs('images', $imageName);
+        }
 
         $dish->update();
 

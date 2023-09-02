@@ -202,7 +202,7 @@
             <h3>Tennis club, bar et petite restauration</h3>
         </div>
 
-        <main class="py-4">
+        <main class="py-4" style="background-color:green;">
             @yield('content')
         </main>
     </div>
