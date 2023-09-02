@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __("Recherche d'utilisateurs") }}</div>
+                <div class="card-header">{{ __("Participants à la session") }}</div>
 
                 <div class="card-body">
                     <form action="{{ url('bookingSports') }}" method="POST">
@@ -18,7 +18,7 @@
 
                         @for ($i = 1; $i <= 4; $i++)
                             <div class="mb-3">
-                                <label for="search{{ $i }}" class="form-label">Recherche {{ $i }} :</label>
+                                <label for="search{{ $i }}" class="form-label">Membre {{ $i }} :</label>
                                 <div class="search-wrapper">
                                     <input type="text" class="form-control search-input" id="search{{ $i }}" data-id="userList{{ $i }}">
                                     <ul class="search-results" id="userList{{ $i }}"></ul>

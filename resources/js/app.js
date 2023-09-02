@@ -483,8 +483,9 @@ $(document).ready(function() {
 
 
 
+/********** PLAGES HORAIRES **********/
 
-
+//Sports
 $(document).ready(function() {
     var isNewTimeslotAdded = false;
     
@@ -619,6 +620,141 @@ $(document).ready(function() {
         }
     });
 });
+
+//Horeca
+$(document).ready(function() {
+    var isNewTimeslotAdded = false;
+    
+    $('#timeslotsContentHoreca').on('click', '#createHoreca', function() {
+        if(isNewTimeslotAdded){
+            $('#createTimeslotHoreca').empty();
+            isNewTimeslotAdded = false;
+        } else {
+            $.ajax({
+                url: '/admin/horeca/timeslots/create',
+                type: 'GET',
+                success: function(response) {
+                    $('#createTimeslotHoreca').html(response);
+                    isNewTimeslotAdded = true;
+                }
+            });
+        }
+    });
+
+    $('#timeslotsContentHoreca').on('submit', function() {
+        // Sélectionner le formulaire et obtenir ses données sérialisées
+        event.preventDefault();
+        var formData = $('#createTimeslotFormHoreca').serialize();
+
+        // Envoi du formulaire via une requête AJAX
+        $.ajax({
+            url: '/timeslots/store',
+            type: 'POST',
+            data: formData,
+            success: function(response) {
+                event.preventDefault();
+                // Si la requête réussit, ajouter le nouveau timeslot à la liste
+                // en utilisant les données de réponse reçues du serveur
+                var newTimeslot = '<li class="list-group-item d-flex justify-content-between align-items-center">' +
+                    '<span class="timeslotHoreca">' + response.startTime + '</span>' +
+                    '<div>' +
+                    '<button type="button" class="edit-btn btn btn-warning active" role="button" data-id="' + response.id + '">Modifier</button>' +
+                    '<a href="/timeslots/delete/' + response.id + '" class="delete-btn btn btn-danger active" role="button" onclick="return confirm(\'Etes-vous sûr de vouloir supprimer cette plage horaire?\')">Supprimer</a>' +
+                    '</div>' +
+                    '<div class="edit-fields" style="display: none;">' +
+                    '<input type="text" class="start-time" value="' + response.startTime + '">' +
+                    '<button type="button" class="update-btn btn btn-success" data-id="' + response.id + '">Enregistrer</button>' +
+                    '<button type="button" class="cancel-btn btn btn-danger">Annuler</button>' +
+                    '</div>' +
+                    '</li>';
+
+                $('#timeslotsContentHoreca').append(newTimeslot);
+
+                // Réinitialiser le formulaire pour permettre d'ajouter d'autres timeslots sans recharger la page
+                $('#createTimeslotFormHoreca')[0].reset();
+            },
+            error: function(error) {
+                // Gérer les erreurs en cas de problème avec la requête AJAX
+                console.error('Une erreur s\'est produite lors de la soumission du formulaire :', error);
+            }
+        });
+    });
+
+    $('#timeslotsContentHoreca').on('click', '.edit-btn', function() {
+        var $li = $(this).closest('li');
+        $li.find('.timeslotHoreca').hide();
+        $li.find('.edit-fields').show();
+        $li.find('.edit-btn').hide();
+        $li.find('.delete-btn').hide();
+    });
+    
+    $('#timeslotsContentHoreca').on('click', '.cancel-btn', function() {
+        var $li = $(this).closest('li');
+        $li.find('.timeslotHoreca').show();
+        $li.find('.edit-fields').hide();
+        $li.find('.edit-btn').show();
+        $li.find('.delete-btn').show();
+    });
+    
+    $('#timeslotsContentHoreca').on('click', '.update-btn', function() {
+        var $li = $(this).closest('li');
+        var timeslotId = $(this).data('id');
+        var startTime = $li.find('.start-time').val();
+        
+        $.ajax({
+            url: `/timeslots/update/${timeslotId}`,
+            type: 'POST',
+            data: {
+                start_time: startTime,
+            },
+            
+            success: function() {
+                
+                var successMessage = '<div class="alert alert-success">Type de boisson modifié avec succès!</div>';
+                $('#success-message-container').html(successMessage);
+
+                
+            }
+        });
+    
+        // Une fois la mise à jour terminée, mettez à jour la vue avec les nouvelles valeurs
+        $li.find('.timeslotHoreca').text(startTime).show();
+        $li.find('.edit-fields').hide();
+        $li.find('.edit-btn').show();
+        $li.find('.delete-btn').show();
+    });
+
+    $('#timeslotsContentHoreca').on('click', '.delete-btn', function() {
+        event.preventDefault();
+        var timeslotId = $(this).data('id');
+        var timeslotElement = document.getElementById('timeslot_' + timeslotId);
+    
+        // Afficher la fenêtre de confirmation
+        if (confirm('Etes-vous sûr de vouloir supprimer cette plage horaire?')) {
+            // Effectuer une action de suppression ici, par exemple en utilisant AJAX pour supprimer le timeslot dans la base de données
+            $.ajax({
+                url: `/timeslots/delete/${timeslotId}`,
+                type: 'GET',
+                data: {
+                    id: timeslotId
+                },
+                
+                success: function() {
+                    
+                    var successMessage = '<div class="alert alert-success">Plage horaire modifiée avec succès!</div>';
+                    $('#success-message-container').html(successMessage);
+    
+                    
+                }
+            });
+            // Une fois la suppression réussie, supprimer le timeslot de la page
+            timeslotElement.remove();
+        }
+    });
+});
+
+
+////////////////
 
 
 $(document).ready(function() {

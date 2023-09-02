@@ -19,8 +19,8 @@
                             </ul>
                         </div>
                     @endif
-                    <button id="addDrinkContent">Ajouter du contenu à drinkContent</button>
-                    <button id="addDrinkTypeContent">Ajouter du contenu à drinkTypeContent</button>
+                    <button id="addDrinkContent">Boissons</button>
+                    <button id="addDrinkTypeContent">Types de boisson</button>
                     
                     <div id="drinksContent">
                         

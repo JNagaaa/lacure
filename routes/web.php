@@ -85,6 +85,12 @@ Route::put('tables/update/{id}', [App\Http\Controllers\TableController::class, '
 Route::get('tables/delete/{id}', [App\Http\Controllers\TableController::class, 'delete'])->middleware('verified');
 
 
+//Plages horaires
+Route::get('/admin/horeca/timeslots/list', [App\Http\Controllers\TimeslotController::class, 'listHoreca'])->middleware('verified');
+Route::get('/admin/horeca/timeslots/create', [App\Http\Controllers\TimeslotController::class, 'createHoreca'])->middleware('verified');
+
+
+
 /**** SPORTS ****/
 Route::get('/admin/sports/home', [App\Http\Controllers\AdminController::class, 'sports'])->middleware('verified');
 
@@ -148,7 +154,7 @@ Route::put('notifications/mark-as-read/{notification}', [App\Http\Controllers\No
 /******* ROUTES UTILISATEURS *******/
 /**** Portail Horeca ****/
 Route::get('/horeca/home', [App\Http\Controllers\HorecaController::class, 'home'])->middleware('verified');
-Route::get('/bookingTable/{date}/{table_id}/{timeslot_id}', [App\Http\Controllers\HorecaController::class, 'bookingTable'])->name('bookingTable')->middleware('verified');
+Route::get('/bookingTable/{date}/{table_id}/{timeslot_id}', [App\Http\Controllers\HorecaController::class, 'booking'])->name('bookingTable')->middleware('verified');
 Route::get('/horeca/menu', [App\Http\Controllers\HorecaController::class, 'menu'])->middleware('verified');
 Route::get('/horeca/menu/dishes', [App\Http\Controllers\HorecaController::class, 'getDishes'])->middleware('verified');
 Route::get('/horeca/menu/dishes/filter', [App\Http\Controllers\HorecaController::class, 'filterDishes'])->middleware('verified');

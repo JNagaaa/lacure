@@ -19,8 +19,8 @@
                             </ul>
                         </div>
                     @endif
-                    <button id="addDishContent">Ajouter du contenu à dishContent</button>
-                    <button id="addDishTypeContent">Ajouter du contenu à dishTypeContent</button>
+                    <button id="addDishContent">Plats</button>
+                    <button id="addDishTypeContent">Types de plat</button>
                     
                     <div id="dishesContent">
                         

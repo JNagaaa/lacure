@@ -23,9 +23,9 @@ class HorecaController extends Controller
     }
 
 
-    public function booking()
+    public function booking($date, $table_id, $timeslot_id)
     {
-        return view('horeca/planning');
+        return view('horeca.booking', compact('date', 'table_id', 'timeslot_id'));
     }
 
     public function bookingTable(Request $request)

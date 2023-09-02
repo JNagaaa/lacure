@@ -16,6 +16,8 @@ return new class extends Migration
             $table->date('date');
             $table->unsignedBigInteger('field_id')->nullable();
             $table->unsignedBigInteger('table_id')->nullable();
+            $table->unsignedBigInteger('phone')->nullable();
+            $table->string('comment')->nullable();
             $table->unsignedBigInteger('timeslot_id');
             $table->unsignedBigInteger('section_id');
             $table->foreign('field_id')

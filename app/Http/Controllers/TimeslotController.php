@@ -25,6 +25,11 @@ class TimeslotController extends Controller
         return view('/admin/sports/timeslots/create');
     }
 
+    public function createHoreca()
+    {
+        return view('/admin/horeca/timeslots/create');
+    }
+
     public function store(Request $request)
     {
         $timeslot = new Timeslot(

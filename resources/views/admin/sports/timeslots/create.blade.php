@@ -1,7 +1,7 @@
 <form id="createTimeslotForm" method="POST" action="/timeslots/store">
     @csrf
     <div class="row mb-3">
-        <label for="name" class="col-md-4 col-form-label text-md-end">Heure de début</label>
+        <label for="start_time" class="col-md-4 col-form-label text-md-end">Heure de début</label>
         <div class="col-md-6 d-flex">
             <input id="start_time" type="text" class="form-control" name="start_time" required>
             @error('start_time')
@@ -10,7 +10,7 @@
                 </span>
             @enderror
         </div>
-        <label for="name" class="col-md-4 col-form-label text-md-end">Heure de fin</label>
+        <label for="end_time" class="col-md-4 col-form-label text-md-end">Heure de fin</label>
         <div class="col-md-6 d-flex">
             <input id="end_time" type="text" class="form-control" name="end_time" required>
             @error('end_time')

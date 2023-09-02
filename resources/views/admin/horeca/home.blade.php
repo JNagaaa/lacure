@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Administration du portail Sports') }}</div>
+                <div class="card-header">{{ __('Administration du portail Horeca') }}</div>
 
                 <div class="card-body">
                     <h1>Que souhaitez-vous gérer?</h1>
@@ -28,6 +28,16 @@
                         <li>
                             <a href='/admin/horeca/reservations/list'>
                                 {{ __('Réservations')}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href='/admin/horeca/timeslots/list'>
+                                {{ __('Plages horaires')}}
+                            </a>
+                        </li>
+                        <li>
+                            <a href='/admin/horeca/news/list'>
+                                {{ __('Actualités')}}
                             </a>
                         </li>
                     </ul>

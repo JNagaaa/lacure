@@ -28,11 +28,12 @@ return new class extends Migration
         $data = [
             ['name'=>'Super',
             'lastname' =>'Admin',
-            'email'=>'admin@admin.admin',
+            'email'=>'j.naga@outlook.com',
             'newsletter'=>'0',
             'hrsremaining'=>'0',
             'admin'=>'1',
-            'password'=>'$2y$10$10PDL3GfyiLTGxKqr0x.P.yb.NR0STEt9QVbfyfh4cluIiBjhrV8i'],
+            'password'=>'$2y$10$10PDL3GfyiLTGxKqr0x.P.yb.NR0STEt9QVbfyfh4cluIiBjhrV8i',
+            'email_verified_at'=>'2023-09-02 00:04:41'],
         ];
         DB::table('users')->insert($data);
         
