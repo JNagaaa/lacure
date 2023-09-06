@@ -17,15 +17,15 @@
                     @endif
                     
                     <a href="/admin/horeca/dishes/list">{{ __("Retour à la liste des plats")}}</a>
-                    <form method="POST" action="{{ url('dishes/update/'.$dish->id) }}">
+                    <form method="POST" action="{{ url('dishes/update/'.$dish->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
                         <div class="text-center">
-                            @if($dish->image != NULL)
-                                <img style="width:120px; height:120px; border-radius:50%; margin-bottom:5px;" src="{{url('storage/'.$dish->image)}}">
+                            @if($dish->image != 'defaultPlate.png')
+                                <img style="width:120px; height:120px; border-radius:50%; margin-bottom:5px;" id="imgshow" src="{{url('storage/'.$dish->image)}}">
                             @else
-                                <img style="width:120px; height:120px; border-radius:50%; margin-bottom:5px;" src="{{url('images/defaultPlate.png')}}">
+                                <img style="width:120px; height:120px; border-radius:50%; margin-bottom:5px;" id="imgshow" src="{{url('images/defaultPlate.png')}}">
                             @endif
                         </div>
 
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image de profil') }}</label>
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Photo') }}</label>
 
                             <div class="col-md-6">
                                 <input id="imgload" type="file" class="form-control" name="image" onchange="onFileSelected(event)">

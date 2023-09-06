@@ -9,12 +9,12 @@
 
                 <div class="card-body">
                     <a href="/admin/horeca/drinks/list">{{ __("Retour à la liste des boissons")}}</a>
-                    <form method="POST" action="{{ url('drinks/store') }}">
+                    <form method="POST" action="{{ url('drinks/store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row mb-3">
                             
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __("Name") }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __("Nom") }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -27,8 +27,25 @@
                             </div>
                         </div>
 
+                        <div style="text-align:center;">
+                            <img src="{{ url('/images/defaultDrink.png') }}" id="imgshow" style="width:120px; height:120px; border-radius:10%; margin-bottom:10px;">
+                        </div>
                         <div class="row mb-3">
-                            <label for="type" class="col-md-4 col-form-label text-md-end">{{ __('Sport') }}</label>
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Photo') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="imgload" type="file" class="form-control" name="image">
+
+                                @error('imgload')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="type" class="col-md-4 col-form-label text-md-end">{{ __('Type') }}</label>
 
                             <div class="col-md-6">
                                 <select id="type" type="text" class="form-control" name="type_id" required autocomplete="type_id">

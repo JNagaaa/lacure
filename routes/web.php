@@ -182,8 +182,14 @@ Route::get('sports/news/one/{id}', [App\Http\Controllers\NewsController::class, 
 Route::get('/users/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->middleware('verified');
 Route::get('/users/one/{id}', [App\Http\Controllers\UserController::class, 'show'])->middleware('verified');
 Route::post('/users/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->middleware('verified');
-Route::get('/users/reservations/{id}', [App\Http\Controllers\ProfileController::class, 'reservations'])->middleware('verified');
+Route::get('/users/reservations/one/{id}', [App\Http\Controllers\ReservationController::class, 'show'])->middleware('verified');
+Route::get('/users/reservations/{id}', [App\Http\Controllers\ReservationController::class, 'home'])->middleware('verified');
+Route::get('/reservations/listSports/{id}', [App\Http\Controllers\ReservationController::class, 'listSports'])->middleware('verified');
+Route::get('/reservations/listHoreca/{id}', [App\Http\Controllers\ReservationController::class, 'listHoreca'])->middleware('verified');
+Route::get('/reservations/list/{id}', [App\Http\Controllers\ReservationController::class, 'list'])->middleware('verified');
 
+
+/******** GESTION IMAGES ********/
 Route::get('storage/{file}', function ($file) {
     $path = storage_path('app' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . $file);
     return response()->file($path);

@@ -18,7 +18,8 @@
                 <div class="card-body text-center">
                     <h3>{{ __("$user->name $user->lastname") }}</h3>
                     <p>{{ __("Adresse mail: $user->email") }}</p>
-                    {{ __("Newsletter: $user->newsletter") }}
+                    <p>{{ __("Newsletter: $user->newsletter") }}</p>
+                    <p>{{ __("Sessions restantes: $user->hrsremaining") }}</p>
                     @if($user->id == Auth::user()->id || Auth::user()->admin == 1)
                         @if($user->id != 1)
                             <div style="text-align:center">

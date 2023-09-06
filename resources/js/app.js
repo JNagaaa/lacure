@@ -975,6 +975,11 @@ $(document).ready(function() {
                 // Boucle pour afficher les plats
                 for (var i = 0; i < dishes.length; i++) {
                     var dish = dishes[i];
+                    if(dish.image != 'defaultPlate.png') {
+                        var baseUrl = $('#dishes').data('base-url');
+                    } else {
+                        var baseUrl = $('#dishesNull').data('base-url');
+                    }
                     
                     html += '<div class="card col mb-3 p-0 me-1 ms-1 text-center" style="min-width: 150px;">';
                     html += '<div class="card-header">'
@@ -999,11 +1004,16 @@ $(document).ready(function() {
                         type: 'GET',
                         data: { type: selectedType },
                         success: function(response) {
-                            var baseUrl = $('#dishes').data('base-url');
                             var filteredDishes = response.dishesByType.data;
                             var html = '<div class="row">';
                             for (var i = 0; i < filteredDishes.length; i++) {
                                 var dish = filteredDishes[i];
+                                if(dish.image != 'defaultPlate.png') {
+                                    var baseUrl = $('#dishes').data('base-url');
+                                } else {
+                                    var baseUrl = $('#dishesNull').data('base-url');
+                                }
+                                
                                 html += '<div class="card col mb-3 p-0 me-1 ms-1 text-center" style="min-width: 150px;">';
                                 html += '<div class="card-header">'
                                 html += '<img src="' + baseUrl + '/' + dish.image + '" style="width:100px; height:100px; border-radius:10%;"/><br>';
@@ -1109,5 +1119,45 @@ $(document).ready(function() {
 });
 
 
-
+// Mes réservations
+$('#reservationTypeSelect').on('change', function() {
+    var selectedType = $(this).val();
+    var userId = $(this).data('base-url');
+    
+    // Vérifiez si "Réservations sportives" est sélectionné
+    if (selectedType === 'sport') {
+        $('#reservationsList').empty();
+        // Effectuez la requête AJAX pour charger la vue
+        $.ajax({
+            type: 'GET',
+            url: '/reservations/listSports/' + userId,
+            success: function(response) {
+                // Insérez le contenu de la vue dans la div #reservationsList
+                $('#reservationsList').html(response);
+            },
+        });
+    }else if(selectedType === 'horeca') {
+        $('#reservationsList').empty();
+        // Effectuez la requête AJAX pour charger la vue
+        $.ajax({
+            type: 'GET',
+            url: '/reservations/listHoreca/' + userId,
+            success: function(response) {
+                // Insérez le contenu de la vue dans la div #reservationsList
+                $('#reservationsList').html(response);
+            },
+        });
+    }else {
+        $('#reservationsList').empty();
+        // Effectuez la requête AJAX pour charger la vue
+        $.ajax({
+            type: 'GET',
+            url: '/reservations/list/' + userId,
+            success: function(response) {
+                // Insérez le contenu de la vue dans la div #reservationsList
+                $('#reservationsList').html(response);
+            },
+        });
+    }
+});
 

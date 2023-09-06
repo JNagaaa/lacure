@@ -26,11 +26,6 @@
                             </a>
                         </li>
                         <li>
-                            <a href='/admin/horeca/reservations/list'>
-                                {{ __('Réservations')}}
-                            </a>
-                        </li>
-                        <li>
                             <a href='/admin/horeca/timeslots/list'>
                                 {{ __('Plages horaires')}}
                             </a>

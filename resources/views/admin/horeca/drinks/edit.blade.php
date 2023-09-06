@@ -16,10 +16,18 @@
                         </div>
                     @endif
                     
-                    <a href="/admin/horeca/drinks/list">{{ __("Retour à la liste des plats")}}</a>
-                    <form method="POST" action="{{ url('drinks/update/'.$drink->id) }}">
+                    <a href="/admin/horeca/drinks/list">{{ __("Retour à la liste des boissons")}}</a>
+                    <form method="POST" action="{{ url('drinks/update/'.$drink->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+
+                        <div class="text-center">
+                            @if($drink->image != 'defaultDrink.png')
+                                <img style="width:120px; height:120px; border-radius:50%; margin-bottom:5px;" id="imgshow" src="{{url('storage/'.$drink->image)}}">
+                            @else
+                                <img style="width:120px; height:120px; border-radius:50%; margin-bottom:5px;" id="imgshow" src="{{url('images/defaultDrink.png')}}">
+                            @endif
+                        </div>
 
                         <div class="row mb-3">
                             
@@ -33,6 +41,14 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image de profil') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="imgload" type="file" class="form-control" name="image" onchange="onFileSelected(event)">
                             </div>
                         </div>
 

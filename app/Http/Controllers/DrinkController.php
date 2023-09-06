@@ -70,10 +70,21 @@ class DrinkController extends Controller
 
     public function store(Request $request)
     {
+        if($request->image != NULL)
+        {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            ]);
+
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->storeAs('images', $imageName);
+        }
+
         $drink = new Drink(
         [
             'name' => $request->name,
             'type_id' => $request->type_id,
+            'image' => $request->image == NULL ? 'defaultDrink.png' : $imageName,
             'description' => $request->description,
         ]);
 
@@ -101,6 +112,18 @@ class DrinkController extends Controller
         $drink->name = $request->name;
         $drink->type_id = $request->type_id;
         $drink->description = $request->description;
+
+        if($request->image != NULL)
+        {
+            Storage::delete('images/'.$drink->image);
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            ]);
+            $imageName = time().'.'.$request->image->extension();
+            
+            $drink->image = $imageName;
+            $request->image->storeAs('images', $imageName);
+        }
 
         $drink->update();
 

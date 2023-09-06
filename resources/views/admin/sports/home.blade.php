@@ -12,22 +12,17 @@
                     <ul>
                         <li>
                             <a href='/admin/sports/fields/list'>
-                                Terrains
-                            </a>
-                        </li>
-                        <li>
-                            <a href='/admin/sports/reservations/list'>
-                                Réservations
+                                {{ __('Terrains')}}
                             </a>
                         </li>
                         <li>
                             <a href='/admin/sports/timeslots/list'>
-                                Plages horaires
+                                {{ __('Plages horaires')}}
                             </a>
                         </li>
                         <li>
                             <a href='/admin/sports/news/list'>
-                                Actualités
+                                {{ __('Actualités')}}
                             </a>
                         </li>
                     </ul>

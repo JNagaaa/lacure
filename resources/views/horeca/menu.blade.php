@@ -14,14 +14,16 @@
                         <button id="drinksBtn">Afficher les boissons</button>
                     </div>
 
-                    <div id="dishes" data-base-url="{{ url('images/') }}">
+                    <div id="dishesNull" data-base-url="{{ url('images/') }}"><div>
+                    <div id="drinksNull" data-base-url="{{ url('images/') }}"><div>
+
+                    <div id="dishes" data-base-url="{{ url('storage/') }}">
                         
                     </div>
 
                     <div id="drinks">
                         
                     </div>
-                    
             </div>
         </div>
     </div>

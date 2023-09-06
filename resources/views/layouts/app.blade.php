@@ -168,7 +168,7 @@
                                             {{ __('Mon profil') }}
                                         </a>
 
-                                        <a class="dropdown-item" href="{{ url('/profile/reservations/'.Auth::user()->id) }}">
+                                        <a class="dropdown-item" href="{{ url('/users/reservations/'.Auth::user()->id) }}">
                                             {{ __('Mes réservations') }}
                                         </a>
 
@@ -185,7 +185,7 @@
                                 </li>
 
                                 <li class="nav-item dropdown">
-                                    <a id="notifications-dropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top:15px;">
+                                    <a id="notifications-dropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top:13px;">
                                         <i class="bi bi-bell"></i>
                                         <span id="numberNotif" class="badge bg-danger"></span>
                                     </a>

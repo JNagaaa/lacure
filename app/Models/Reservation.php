@@ -24,4 +24,9 @@ class Reservation extends Model
     {
         return $this->belongsToMany(User::class, 'reservation_user');
     }
+
+    public function timeslot()
+    {
+        return $this->belongsTo(Timeslot::class, 'timeslot_id');
+    }
 }

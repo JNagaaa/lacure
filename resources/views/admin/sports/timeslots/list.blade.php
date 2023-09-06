@@ -19,8 +19,6 @@
 
                     
                     
-                    
-                    
                     <div id="timeslotsContent">
                         <button id="create" class="rounded-pill">Ajouter une nouvelle plage horaire</button>
                         <div id="createTimeslot"></div>
