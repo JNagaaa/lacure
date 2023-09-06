@@ -21,7 +21,7 @@
                         
                     </div>
 
-                    <div id="drinks">
+                    <div id="drinks" data-base-url="{{ url('storage/') }}">
                         
                     </div>
             </div>

@@ -1063,9 +1063,15 @@ $(document).ready(function() {
                 // Boucle pour afficher les plats
                 for (var i = 0; i < drinks.length; i++) {
                     var drink = drinks[i];
+                    if(drink.image != 'defaultDrink.png') {
+                        var baseUrl = $('#dishes').data('base-url');
+                    } else {
+                        var baseUrl = $('#dishesNull').data('base-url');
+                    }
                     
                     html += '<div class="card col mb-3 p-0 me-1 ms-1 text-center" style="min-width: 150px;">';
                     html += '<div class="card-header">'
+                    html += '<img src="' + baseUrl + '/' + drink.image + '" style="width:100px; height:100px; border-radius:10%;"/><br>';
                     html += drink.name;
                     html += '</div><div class="card-body me-2 ms-2">'
                     html += drink.description;
@@ -1088,12 +1094,18 @@ $(document).ready(function() {
                             var html = '<div class="row">';
                             for (var i = 0; i < filteredDrinks.length; i++) {
                                 var drink = filteredDrinks[i];
-                                html += '<div class="card col mb-3 me-1 ms-1 p-0 text-center" style="min-width: 150px;">';
+                                if(drink.image != 'defaultDrink.png') {
+                                    var baseUrl = $('#drinks').data('base-url');
+                                } else {
+                                    var baseUrl = $('#drinksNull').data('base-url');
+                                }
+                                
+                                html += '<div class="card col mb-3 p-0 me-1 ms-1 text-center" style="min-width: 150px;">';
                                 html += '<div class="card-header">'
+                                html += '<img src="' + baseUrl + '/' + drink.image + '" style="width:100px; height:100px; border-radius:10%;"/><br>';
                                 html += drink.name;
-                                html += '</div><div class="card-body">'
+                                html += '</div><div class="card-body me-2 ms-2">'
                                 html += drink.description;
-                                html += '<br>';
                                 html += '</div></div>';
                             }
                             html += '</div>';
