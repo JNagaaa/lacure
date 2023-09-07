@@ -9,7 +9,7 @@
 
                 <div class="card-body">
                     <a href="/admin/sports/news/list">{{ __("Retour à la liste des actualités")}}</a>
-                    <form method="POST" action="{{ url('news/store') }}">
+                    <form method="POST" action="{{ url('news/store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row mb-3">
@@ -23,6 +23,23 @@
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div style="text-align:center;">
+                            <img src="{{ url('/images/defaultNews.png') }}" id="imgshow" style="width:120px; height:120px; border-radius:10%; margin-bottom:10px;">
+                        </div>
+                        <div class="row mb-3">
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __("Photo d'illustration") }}</label>
+
+                            <div class="col-md-6">
+                                <input id="imgload" type="file" class="form-control" name="image">
+
+                                @error('imgload')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -41,7 +58,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+                        <input id="section_id" type="hidden" name="section_id" value="2"/>
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">

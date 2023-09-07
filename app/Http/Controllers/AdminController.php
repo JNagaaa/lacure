@@ -23,8 +23,14 @@ class AdminController extends Controller
 
     public function listNews()
     {
-        $allNews = News::all();
+        $allNews = News::where('section_id', 2)->get();
         return view('admin/sports/news/list', compact('allNews'));
+    }
+
+    public function listNewsHoreca()
+    {
+        $allNews = News::where('section_id', 1)->get();
+        return view('admin/horeca/news/list', compact('allNews'));
     }
 
     public function editNews($id)

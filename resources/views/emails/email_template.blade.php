@@ -40,12 +40,13 @@
 </head>
 <body>
     <div class="email-wrapper">
+        
         <p style="text-align: center;">Bonjour,</p>
         <p style="text-align: center;">Une nouvelle actualité a été publiée sur notre site.</p>
         <h2 style="text-align: center; margin-bottom: 15px;">{{ $data['title'] }}</h2>
         
-        <p style="text-align: center; margin-top: 20px;">Vous pouvez consulter cette news en suivant le lien ci-dessous :</p>
-        <p style="text-align: center; margin-bottom: 20px;"><a href="{{ $data['news_link'] }}">{{ $data['news_link'] }}</a></p>
+        <p style="text-align: center; margin-top: 20px;">Vous pouvez consulter cette news en cliquant <a href="{{ $data['news_link'] }}">ici</a>.</p>
+        <p style="text-align: center; margin-bottom: 20px;">
         <p style="text-align: center;">Par ailleurs, n'hésitez pas à consultez nos autres actualités sur notre site internet.</p>
         <p style="text-align: center;">Cordialement,</p>
         <p style="text-align: center;">L'équipe de La Cure</p>

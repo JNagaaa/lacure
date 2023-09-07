@@ -6,8 +6,8 @@
         <div class="card-header">Planning des réservations</div>
         <div class="card-body">
 
-            <input type="date" name="date" id="bookingTableDate" value="{{ $date }}">
-            
+            <input type="date" id="bookingTableDate" min="{{ date('Y-m-d') }}" value="{{ $date }}">
+
 
             <div class="row">
                 @foreach($tables as $table)

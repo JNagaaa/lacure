@@ -12,6 +12,11 @@ use App\Models\Table;
 use App\Models\Reservation;
 use App\Models\ReservationUser;
 use App\Models\Timeslot;
+use App\Models\News;
+use App\Models\User;
+use App\Notifications\ReservationNotification;
+use Illuminate\Support\Facades\Notification;
+
 
 
 class HorecaController extends Controller
@@ -19,7 +24,8 @@ class HorecaController extends Controller
     
     public function home()
     {
-        return view('horeca/home');
+        $allNews = News::where('section_id', 1)->paginate(5);
+        return view('horeca/home', compact('allNews'));
     }
 
 
@@ -53,6 +59,9 @@ class HorecaController extends Controller
             ]);
         
         $reservationUser->save();
+
+        $admins = User::where('admin', 1)->get();
+        Notification::send($admins, new ReservationNotification($reservation));
     }
 
     public function planning()

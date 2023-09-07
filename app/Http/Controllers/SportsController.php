@@ -10,7 +10,6 @@ use App\Models\Reservation;
 use App\Models\ReservationUser;
 use App\Models\User;
 use App\Models\News;
-use Illuminate\Support\Carbon;
 use App\Notifications\ReservationNotification;
 use Illuminate\Support\Facades\Notification;
 
@@ -22,7 +21,7 @@ class SportsController extends Controller
     
     public function home()
     {
-        $allNews = News::all();
+        $allNews = News::where('section_id', 2)->paginate(5);
         return view('sports/home', compact('allNews'));
     }
 

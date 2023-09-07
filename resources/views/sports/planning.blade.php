@@ -6,7 +6,7 @@
         <div class="card-header">Réservation</div>
         <div class="card-body">
 
-            <input type="date" name="date" id="bookingDate" value="{{ $date }}">
+            <input type="date" id="bookingDate" min="{{ date('Y-m-d') }}" value="{{ $date }}">
             <select name="fieldType" id="fieldTypeSelect">
                 <option value="">Tous les terrains</option>
                 <option value="Tennis">Tennis</option>

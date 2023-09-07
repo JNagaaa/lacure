@@ -16,7 +16,7 @@
                         </div>
                     @endif
 
-                    <a href="/admin/sports/news/create">
+                    <a href="/admin/horeca/news/create">
                         Ajouter une nouvelle actualité
                     </a>
 

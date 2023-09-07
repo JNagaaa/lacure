@@ -27,7 +27,7 @@ class ReservationNotification extends Notification
     {
         return [
             'reservation_id' => $this->reservation->id,
-            'message' => '<div class="notification-title border-bottom pb-2"><a href="' . route('reservation.show', ['id' => $this->reservation->id]) . '" style="text-decoration: none; color: black; display: block; width: 100%;">Une nouvelle réservation a été effectuée.'
+            'message' => '<div class="notification-title border-bottom pb-2"><a href="' . url('users/reservations/one', ['id' => $this->reservation->id]) . '" style="text-decoration: none; color: black; display: block; width: 100%;">Une nouvelle réservation a été effectuée.'
         ];
     }
 

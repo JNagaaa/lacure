@@ -23,6 +23,15 @@ $.ajaxSetup({
  });
 
  $('document').ready(function () {
+    document.getElementById('bookingDate').min = new Date().toISOString().split('T')[0];
+ });
+
+ $('document').ready(function () {
+    document.getElementById('bookingTableDate').min = new Date().toISOString().split('T')[0];
+ });
+ 
+
+ $('document').ready(function () {
     $("#imgload").change(function () {
         if (this.files && this.files[0]) {
             var reader = new FileReader();
@@ -60,67 +69,72 @@ $(document).ready(function() {
                 notificationsList.innerHTML = ''; // Nettoie la liste des notifications précédentes
 
                 const notifications = response.notifications;
-                notifications.forEach(notification => {
-                    const notificationItem = document.createElement('div');
-                    notificationItem.classList.add('notification-item');
-                    
-                    
-                    // Calcule le temps écoulé
-                    const createdAt = new Date(notification.created_at);
-                    const now = new Date();
-                    const diffInSeconds = Math.floor((now - createdAt) / 1000);
 
-                    // Fonction pour afficher le temps écoulé en français
-                    const formatTimeAgo = (value, unit) => {
-                        if (value === 1) {
-                            return value + ' ' + unit;
-                        } else {
-                            return value + ' ' + unit + 's';
-                        }
-                    };
+                if (notifications.length === 0) {
+                    // Si aucune notification non lue
+                    notificationsList.innerHTML = '<div>Aucune notification non lue</div>';
+                } else {
+                    // S'il y a des notifications non lues
+                    notifications.forEach(notification => {
+                        const notificationItem = document.createElement('div');
+                        notificationItem.classList.add('notification-item');
 
-                    let timeAgo = '';
-                    if (diffInSeconds < 60) {
-                        timeAgo = formatTimeAgo(diffInSeconds, 'seconde');
-                    } else if (diffInSeconds < 3600) {
-                        const diffInMinutes = Math.floor(diffInSeconds / 60);
-                        timeAgo = formatTimeAgo(diffInMinutes, 'minute');
-                    } else if (diffInSeconds < 86400) {
-                        const diffInHours = Math.floor(diffInSeconds / 3600);
-                        timeAgo = formatTimeAgo(diffInHours, 'heure');
-                    } else if (diffInSeconds < 2592000) {
-                        const diffInDays = Math.floor(diffInSeconds / 86400);
-                        timeAgo = formatTimeAgo(diffInDays, 'jour');
-                    } else if (diffInSeconds < 31536000) {
-                        const diffInMonths = Math.floor(diffInSeconds / 2592000);
-                        timeAgo = formatTimeAgo(diffInMonths, 'mois');
-                    } else {
-                        const diffInYears = Math.floor(diffInSeconds / 31536000);
-                        timeAgo = formatTimeAgo(diffInYears, 'an');
-                    }
+                        // Calcule le temps écoulé
+                        const createdAt = new Date(notification.created_at);
+                        const now = new Date();
+                        const diffInSeconds = Math.floor((now - createdAt) / 1000);
 
-                    notificationItem.innerHTML = `
-                        ${notification.data.message} (Il y a ${timeAgo})</div></a>
-                    `;
-
-
-                    notificationItem.addEventListener('click', function() {
-                        // Marquer la notification comme lue
-                        $.ajax({
-                            url: `notifications/mark-as-read/${notification.id}`,
-                            method: 'PUT',
-                            dataType: 'json',
-                            success: function() {
-                                // Mettre à jour l'affichage des notifications non lues
-                                fetchUnreadNotifications();
-                            },
-                            error: function(error) {
-                                console.error(error);
+                        // Fonction pour afficher le temps écoulé en français
+                        const formatTimeAgo = (value, unit) => {
+                            if (value === 1) {
+                                return value + ' ' + unit;
+                            } else {
+                                return value + ' ' + unit + 's';
                             }
+                        };
+
+                        let timeAgo = '';
+                        if (diffInSeconds < 60) {
+                            timeAgo = formatTimeAgo(diffInSeconds, 'seconde');
+                        } else if (diffInSeconds < 3600) {
+                            const diffInMinutes = Math.floor(diffInSeconds / 60);
+                            timeAgo = formatTimeAgo(diffInMinutes, 'minute');
+                        } else if (diffInSeconds < 86400) {
+                            const diffInHours = Math.floor(diffInSeconds / 3600);
+                            timeAgo = formatTimeAgo(diffInHours, 'heure');
+                        } else if (diffInSeconds < 2592000) {
+                            const diffInDays = Math.floor(diffInSeconds / 86400);
+                            timeAgo = formatTimeAgo(diffInDays, 'jour');
+                        } else if (diffInSeconds < 31536000) {
+                            const diffInMonths = Math.floor(diffInSeconds / 2592000);
+                            timeAgo = formatTimeAgo(diffInMonths, 'mois');
+                        } else {
+                            const diffInYears = Math.floor(diffInSeconds / 31536000);
+                            timeAgo = formatTimeAgo(diffInYears, 'an');
+                        }
+
+                        notificationItem.innerHTML = `
+                            ${notification.data.message} (Il y a ${timeAgo})</div></a>
+                        `;
+
+                        notificationItem.addEventListener('click', function() {
+                            // Marquer la notification comme lue
+                            $.ajax({
+                                url: `notifications/mark-as-read/${notification.id}`,
+                                method: 'PUT',
+                                dataType: 'json',
+                                success: function() {
+                                    // Mettre à jour l'affichage des notifications non lues
+                                    fetchUnreadNotifications();
+                                },
+                                error: function(error) {
+                                    console.error(error);
+                                }
+                            });
                         });
+                        notificationsList.appendChild(notificationItem);
                     });
-                    notificationsList.appendChild(notificationItem);
-                });
+                }
             },
             error: function(error) {
                 console.error(error);
@@ -128,6 +142,7 @@ $(document).ready(function() {
         });
     });
 });
+
 
 
 

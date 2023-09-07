@@ -15,6 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
+            $table->string('image');
+            $table->unsignedBigInteger('section_id');
+            $table->foreign('section_id')
+                ->references('id')
+                ->on('sections')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

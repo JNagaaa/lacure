@@ -66,10 +66,13 @@ Route::post('drinks/types/update/{id}', [App\Http\Controllers\DrinkController::c
 Route::get('drinks/types/delete/{id}', [App\Http\Controllers\DrinkController::class, 'deleteType'])->middleware('verified');
 
 //Actualités
-Route::get('/admin/horeca/news/list', [App\Http\Controllers\NewsController::class, 'list'])->middleware('verified');
-Route::get('/admin/horeca/news/create', [App\Http\Controllers\NewsController::class, 'create'])->middleware('verified');
+Route::get('/admin/horeca/news/list', [App\Http\Controllers\AdminController::class, 'listNewsHoreca'])->middleware('verified');
+Route::get('/admin/horeca/news/create', [App\Http\Controllers\NewsController::class, 'createHoreca'])->middleware('verified');
 Route::get('/admin/horeca/news/one/{id}', [App\Http\Controllers\NewsController::class, 'one'])->middleware('verified');
 Route::get('/admin/horeca/news/edit/{id}', [App\Http\Controllers\NewsController::class, 'edit'])->middleware('verified');
+Route::post('news/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('verified');
+Route::put('news/update/{id}', [App\Http\Controllers\AdminController::class, 'updateNews'])->middleware('verified');
+Route::get('news/delete/{id}', [App\Http\Controllers\NewsController::class, 'delete'])->middleware('verified');
 
 //Réservations
 Route::get('/admin/horeca/reservations/list', [App\Http\Controllers\ReservationController::class, 'listHoreca'])->middleware('verified');
@@ -127,7 +130,6 @@ Route::get('admin/sports/news/delete/{id}', [App\Http\Controllers\AdminControlle
 Route::post('news/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('verified');
 Route::put('news/update/{id}', [App\Http\Controllers\AdminController::class, 'updateNews'])->middleware('verified');
 Route::get('news/delete/{id}', [App\Http\Controllers\NewsController::class, 'delete'])->middleware('verified');
-Route::get('/news/{id}', [App\Http\Controllers\NewsController::class, 'show'])->name('news.show')->middleware('verified');
 
 
 
@@ -137,10 +139,10 @@ Route::get('/users/search', [App\Http\Controllers\UserController::class, 'search
 
 
 
-/**** DIVERS ****/
+/**** NOTIFICATIONS ****/
 
 
-Route::get('/sports/reservations/one/{id}', [App\Http\Controllers\ReservationController::class, 'show'])->name('reservation.show');
+Route::get('/users/reservations/one/{id}', [App\Http\Controllers\ReservationController::class, 'show'])->name('reservation.show');
 Route::get('notifications/fetch', [App\Http\Controllers\NotificationController::class, 'fetch'])->name('notifications.fetch');
 Route::get('/notifications/unread', [App\Http\Controllers\NotificationController::class, 'getUnreadNotifications']);
 Route::put('notifications/mark-as-read/{notification}', [App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
