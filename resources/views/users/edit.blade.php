@@ -5,7 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Modification du profil') }}</div>
+                <div class="card-header">
+                    {{ __('Modification du profil') }}
+                    <div style="text-align: center">
+                        <a href="{{ url('/auth/passwords/edit') }}" class="btn btn-primary btn-sm">Modifier le mot de passe</a>
+                    </div>
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ url('users/update/'.$user->id) }}" enctype="multipart/form-data">

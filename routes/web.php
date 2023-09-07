@@ -187,7 +187,8 @@ Route::get('/users/reservations/{id}', [App\Http\Controllers\ReservationControll
 Route::get('/reservations/listSports/{id}', [App\Http\Controllers\ReservationController::class, 'listSports'])->middleware('verified');
 Route::get('/reservations/listHoreca/{id}', [App\Http\Controllers\ReservationController::class, 'listHoreca'])->middleware('verified');
 Route::get('/reservations/list/{id}', [App\Http\Controllers\ReservationController::class, 'list'])->middleware('verified');
-
+Route::get('/auth/passwords/edit', [App\Http\Controllers\PasswordController::class, 'edit']);
+Route::post('/auth/passwords/update', [App\Http\Controllers\PasswordController::class, 'update']);
 
 /******** GESTION IMAGES ********/
 Route::get('storage/{file}', function ($file) {
