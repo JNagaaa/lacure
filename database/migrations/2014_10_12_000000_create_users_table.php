@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('image')->nullable();
             $table->boolean('newsletter');
+            $table->boolean('member');
+            $table->date('date_member')->nullable();
             $table->integer('hrsremaining');
             $table->boolean('admin');
             $table->string('password');
@@ -31,7 +33,8 @@ return new class extends Migration
             'lastname' =>'Admin',
             'email'=>'j.naga@outlook.com',
             'newsletter'=>'0',
-            'hrsremaining'=>'0',
+            'hrsremaining'=>'30',
+            'member'=>'1',
             'admin'=>'1',
             'password'=>'$2y$10$10PDL3GfyiLTGxKqr0x.P.yb.NR0STEt9QVbfyfh4cluIiBjhrV8i',
             'email_verified_at'=>'2023-09-02 00:04:41'],

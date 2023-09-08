@@ -120,12 +120,11 @@ $(document).ready(function() {
                         notificationItem.addEventListener('click', function() {
                             // Marquer la notification comme lue
                             $.ajax({
-                                url: `notifications/mark-as-read/${notification.id}`,
+                                url: `/notifications/mark-as-read/${notification.id}`,
                                 method: 'PUT',
                                 dataType: 'json',
                                 success: function() {
-                                    // Mettre à jour l'affichage des notifications non lues
-                                    fetchUnreadNotifications();
+                                    
                                 },
                                 error: function(error) {
                                     console.error(error);

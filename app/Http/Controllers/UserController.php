@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\NewMemberNotification;
+use Illuminate\Support\Facades\Notification;
+use Carbon\Carbon;
+
 
 
 class UserController extends Controller
@@ -20,6 +24,8 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
+        $users = User::where('member', 1)->get();
+        
         return view('/users/one', compact('user'));
 
     }
@@ -58,9 +64,36 @@ class UserController extends Controller
             $request->image->storeAs('images', $imageName);
         }
 
+        if($request->input('member') == "on" && $user->member == 0)
+        {
+            $user->member = 1;
+            $user->hrsremaining = 30;
+            $user->date_member = now();
+            $user->notify(new NewMemberNotification);
+        }
+
+        if($request->input('member') != "on" && $user->member == 1)
+        {
+            $user->member = 0;
+            $user->date_member = NULL;
+            $user->hrsremaining = 0;
+            
+        }
         $user->update();
 
         return redirect('/users/one/' . $id)->with('success', 'Profil modifié avec succès!');
+    }
+
+    public function renewMember($id)
+    {
+        $user = User::find($id);
+        $user->date_member = now();
+        $user->hrsremaining = 30;
+
+        $user->update();
+
+        return redirect('/users/one/' . $id)->with('success', 'Accès membre renouvelé avec succès!');
+
     }
 
     public function search(Request $request)

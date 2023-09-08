@@ -1,31 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Administration du portail Sports') }}</div>
+        <div class="col-md-12">
+            <div>
 
-                <div class="card-body">
-                    <h1>Que souhaitez-vous gérer?</h1>
-                    <ul>
-                        <li>
-                            <a href='/admin/sports/fields/list'>
+
+                <div class="text-center">
+                    <h1>Gestion portail Horeca</h1>
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <a href='/admin/sports/fields/list' class="btn btn-primary btnAdmin btnFields btn-lg m-3 rounded-pill">
                                 {{ __('Terrains')}}
                             </a>
-                        </li>
-                        <li>
-                            <a href='/admin/sports/timeslots/list'>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-center">
+                            <a href='/admin/sports/timeslots/list' class="btn btn-primary btnAdmin btnTimeslots btn-lg m-3 rounded-pill">
                                 {{ __('Plages horaires')}}
                             </a>
-                        </li>
-                        <li>
-                            <a href='/admin/sports/news/list'>
+                        </div>
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <a href='/admin/sports/news/list' class="btn btn-primary btnAdmin btnNews btn-lg m-3 rounded-pill">
                                 {{ __('Actualités')}}
                             </a>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

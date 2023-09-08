@@ -1,0 +1,88 @@
+.navbar {
+    background-color: #333333;
+    color: white;
+}
+
+.navbar-brand {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+}
+
+.header {
+    background-image: url('/public/src/img/banner.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    text-align: center;
+    padding: 200px 0; /* Ajustez ce padding en fonction de vos besoins */
+    color: white;
+}
+
+.header h2 {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+
+
+.btnAdmin {
+    color: #fff; /* Couleur du texte pour une meilleure visibilité */
+    border: solid 2px black;
+    transition: transform 0.3s; /* Ajout de la transition */
+    height: 175px;
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;    
+}
+
+.btnDishes {
+    background-image: url('/public/images/dishes.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.btnDrinks {
+    background-image: url('/public/images/drinks.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.btnTimeslots {
+    background-image: url('/public/images/timeslots.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.btnTables {
+    background-image: url('/public/images/tables.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.btnNews {
+    background-image: url('/public/images/news.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.btnFields {
+    background-image: url('/public/images/fields.png');
+    background-size: cover;
+    background-position: center;
+}
+
+
+.btnAdmin:hover,
+.btnAdmin:focus {
+    transform: scale(1.1);
+    transition: transform 0.3s;
+    border: solid 2px black; /* Ajout de la transition */
+    /* Légèrement agrandi au survol */
+}

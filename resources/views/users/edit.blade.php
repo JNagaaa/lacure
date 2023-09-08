@@ -25,7 +25,18 @@
                                     </div>
                                 </div>
                             </div>
-                            @endif
+                        @endif
+
+                        @if(Auth::user()->admin == 1)
+                            <div class="row mb-3">              
+                                <div class="form-check">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" name="member" type="checkbox" @if($user->member == 1) checked @endif>
+                                        <label class="form-check-label" >Membre</label>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
 
                         <div style="text-align:center;">
                             @if($user->image != NULL)

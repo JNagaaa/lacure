@@ -11,7 +11,6 @@
                     <form action="{{ url('bookingSports') }}" method="POST">
                         @csrf
 
-                        {{-- Champs cachés pour stocker les valeurs de $data, $field_id et $timeslot_id --}}
                         <input type="hidden" name="date" value="{{ $date }}">
                         <input type="hidden" name="field_id" value="{{ $field_id }}">
                         <input type="hidden" name="timeslot_id" value="{{ $timeslot_id }}">
