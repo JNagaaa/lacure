@@ -168,20 +168,21 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h4>À propos de nous</h4>
+                    <h4>Contact Horeca:</h4>
+                    <p>Email : lacure.administration@gmail.com</p>
+                    <p>Téléphone : 123-456-7890</p>
                 </div>
                 <div class="col-md-4">
-                    <h4>Nos services</h4>
-                    
+                    <h4>Conditions d'utilisations</h4>
                 </div>
                 <div class="col-md-4">
-                    <h4>Contacts:</h4>
+                    <h4>Contact sports:</h4>
                     <p>Email : lacure.administration@gmail.com</p>
                     <p>Téléphone : 123-456-7890</p>
                 </div>
             </div>
             <hr class="my-4">
-            <p>&copy; 1984 BATD La Cure</p>
+            <p>&copy; 1989 Belgian Association for Tennis Development</p>
         </div>
     </footer>
 </body>
