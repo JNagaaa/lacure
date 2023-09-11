@@ -10,6 +10,7 @@ class Kernel extends ConsoleKernel
 
     protected $commands = [
         \App\Console\Commands\ResetHrsRemaining::class,
+        \App\Console\Commands\ClearExpiredReservations::class,
     ];
     /**
      * Define the application's command schedule.
@@ -18,6 +19,9 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('user:reset-hrsremaining')->monthlyOn(1, '00:00');
         $schedule->job(new \App\Jobs\SendRenewalNotification)->daily();
+        $schedule->command('email:send-bulk')->everyMinute();
+        $schedule->command('clear:expired_reservations')->dailyAt('00:00');
+
     }
 
     /**

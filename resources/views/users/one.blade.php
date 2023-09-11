@@ -45,7 +45,7 @@
                         @if($user->id != 1)
                             <div style="text-align:center">
                                 <a href="{{ url('/users/edit/'.$user->id) }}" class="btn btn-primary btn-sm">Modifier le profil</a>
-                                <a class="btn btn-primary btn-sm" href="{{ url('/user/delete/'.$user->id) }}" onclick="return confirm('En cliquant sur OK, le compte sera définitivement supprimé de la plateforme. Souhaitez-vous continuer?')">Supprimer le profil</a>
+                                <a class="btn btn-primary btn-sm" href="{{ url('/users/delete/'.$user->id) }}" onclick="return confirm('En cliquant sur OK, le compte sera définitivement supprimé de la plateforme. Souhaitez-vous continuer?')">Supprimer le profil</a>
                                 @if($user->member && Auth::user()->admin == 1)
                                     <a href="{{ url('/users/renewMember/' . $user->id) }}" class="btn btn-success btn-sm" onclick="return confirm('Vous apprêtez à renouveler l\'abonnement de ce membre. Confirmez-vous?')">Renouveler l'abonnement</a>
                                 @endif

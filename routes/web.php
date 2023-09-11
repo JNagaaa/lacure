@@ -136,6 +136,7 @@ Route::get('news/delete/{id}', [App\Http\Controllers\NewsController::class, 'del
 /**** UTILISATEURS ****/
 Route::get('/admin/users/list', [App\Http\Controllers\UserController::class, 'list'])->middleware('verified');
 Route::get('/users/search', [App\Http\Controllers\UserController::class, 'search'])->middleware('verified');
+Route::get('/users/delete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->middleware('verified');
 Route::get('/users/renewMember/{id}', [App\Http\Controllers\UserController::class, 'renewMember'])->middleware('verified');
 
 

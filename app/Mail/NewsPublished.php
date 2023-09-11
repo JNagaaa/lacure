@@ -39,7 +39,7 @@ class NewsPublished extends Mailable
     public function build()
     {
         return $this->view('emails.email_template')
-                    ->subject('Nouvelle actualité')
+                    ->subject('Newsletter - Nouvelle actualité')
                     ->with($this->data); // Pass the data to the email template
     }
 

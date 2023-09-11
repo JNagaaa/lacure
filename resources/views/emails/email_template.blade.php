@@ -49,7 +49,10 @@
         <p style="text-align: center; margin-bottom: 20px;">
         <p style="text-align: center;">Par ailleurs, n'hésitez pas à consultez nos autres actualités sur notre site internet.</p>
         <p style="text-align: center;">Cordialement,</p>
-        <p style="text-align: center;">L'équipe de La Cure</p>
+        <p style="text-align: right;">La Cure</p>
+        <p style="text-align: right;">Drève 4</p>
+        <p style="text-align: right;">1370 Zétrud-Lumay</p>
+        <p style="text-align: right;">Belgique</p>
     </div>
 </body>
 </html>

@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewsPublished;
+use App\Jobs\SendBulkEmail;
+
 
 
 class NewsController extends Controller
@@ -40,8 +42,6 @@ class NewsController extends Controller
 
     public function store(Request $request)
     {
-        $users = User::where('newsletter', 1)->get();
-
         if($request->image != NULL)
         {
             $request->validate([
@@ -52,23 +52,21 @@ class NewsController extends Controller
             $request->image->storeAs('images', $imageName);
         }
 
-        $news = new News(
-            [
-                'title' => $request->input('title'),
-                'content' => $request->input('content'),
-                'image' => $request->input('image') == NULL ? 'defaultNews.png' : $imageName,
-                'section_id' => $request->input('section_id'),
-            ]);
-
+        $news = new News([
+            'title' => $request->input('title'),
+            'content' => $request->input('content'),
+            'image' => $request->input('image') == NULL ? 'defaultNews.png' : $imageName,
+            'section_id' => $request->input('section_id'),
+        ]);
+    
         $news->save();
-        
-        foreach ($users as $user) {
-            Mail::to($user->email)->send(new NewsPublished([
-                'title' => $news->title,
-                'content' => $news->content,
-                'image' => $news->image,
-                'news_link' => $news->section_id = 1 ? url('/horeca/home') : url('/sports/home'),
-            ]));
+    
+        dispatch(new SendBulkEmail($news))->onQueue('bulk_email'); // Envoie le job à la file d'attente 'bulk_email'
+        if($news->section_id == 1)
+        {
+            return redirect('/horeca/home')->with('success', 'Actualité publiée avec succès!');
+        } else {
+            return redirect('/sports/home')->with('success', 'Actualité publiée avec succès!');
         }
     }
 

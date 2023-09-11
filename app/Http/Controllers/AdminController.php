@@ -23,13 +23,13 @@ class AdminController extends Controller
 
     public function listNews()
     {
-        $allNews = News::where('section_id', 2)->get();
+        $allNews = News::where('section_id', 2)->orderBy('created_at', 'desc')->paginate(10);
         return view('admin/sports/news/list', compact('allNews'));
     }
 
     public function listNewsHoreca()
     {
-        $allNews = News::where('section_id', 1)->get();
+        $allNews = News::where('section_id', 1)->orderBy('created_at', 'desc')->paginate(10);
         return view('admin/horeca/news/list', compact('allNews'));
     }
 

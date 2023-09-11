@@ -21,7 +21,7 @@ class SportsController extends Controller
     
     public function home()
     {
-        $allNews = News::where('section_id', 2)->paginate(5);
+        $allNews = News::where('section_id', 2)->orderBy('created_at', 'desc')->paginate(5);
         return view('sports/home', compact('allNews'));
     }
 
@@ -116,6 +116,7 @@ class SportsController extends Controller
         $admins = User::where('admin', 1)->get();
         Notification::send($admins, new ReservationNotification($reservation));
         
+        return redirect('/users/reservations/one/' . $reservationId)->with('success', 'Réservation enregistrée avec succès!');
     }
 
 

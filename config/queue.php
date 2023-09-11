@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_CONNECTION', 'sync'),
+    'default' => env('QUEUE_CONNECTION', 'redis'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,11 +34,19 @@ return [
             'driver' => 'sync',
         ],
 
+        'bulk_email' => [
+            'driver' => 'redis', // Utilisez le pilote de file d'attente que vous préférez
+            'connection' => 'default', // Utilisez la connexion que vous avez configurée
+            'queue' => 'bulk_email',
+            'retry_after' => 90, // Le temps après lequel une tâche échouée sera réessayée
+        ],
+
         'database' => [
             'driver' => 'database',
             'table' => 'jobs',
             'queue' => 'default',
             'retry_after' => 90,
+            'serialize' => 'json',
             'after_commit' => false,
         ],
 

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card" style="background-color: #333333;">
                 <div class="card-header">{{ __("Création d'un plat") }}</div>
 
                 <div class="card-body">
@@ -16,7 +16,7 @@
                         </div>
                     @endif
                     
-                    <a href="/admin/horeca/dishes/list">{{ __("Retour à la liste des plats")}}</a>
+                    <a href="/admin/horeca/dishes/list" style="color: #FFA500;">{{ __("Retour à la liste des plats")}}</a>
                     <form method="POST" action="{{ url('dishes/update/'.$dish->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -30,8 +30,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __("Name") }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end" style="color: #FFA500;">{{ __("Name") }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $dish->name }}" required autocomplete="name" autofocus>
@@ -45,7 +44,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Photo') }}</label>
+                            <label for="image" class="col-md-4 col-form-label text-md-end" style="color: #FFA500;">{{ __('Photo') }}</label>
 
                             <div class="col-md-6">
                                 <input id="imgload" type="file" class="form-control" name="image" onchange="onFileSelected(event)">
@@ -53,7 +52,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="type" class="col-md-4 col-form-label text-md-end">{{ __('Type') }}</label>
+                            <label for="type" class="col-md-4 col-form-label text-md-end" style="color: #FFA500;">{{ __('Type') }}</label>
 
                             <div class="col-md-6">
                                 <select id="type" type="text" class="form-control" name="type_id" required autocomplete="type_id">
@@ -68,8 +67,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            
-                            <label for="price" class="col-md-4 col-form-label text-md-end">{{ __("Prix") }}</label>
+                            <label for="price" class="col-md-4 col-form-label text-md-end" style="color: #FFA500;">{{ __("Prix") }}</label>
 
                             <div class="col-md-6">
                                 <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ $dish->price }}" required autocomplete="price" autofocus>
@@ -82,11 +80,8 @@
                             </div>
                         </div>
 
-                        
-
                         <div class="row mb-3">
-                            
-                            <label for="description" class="col-md-4 col-form-label text-md-end">{{ __("Description") }}</label>
+                            <label for="description" class="col-md-4 col-form-label text-md-end" style="color: #FFA500;">{{ __("Description") }}</label>
 
                             <div class="col-md-6">
                                 <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description" required autocomplete="description" autofocus>{{ $dish->description }}</textarea>
@@ -100,8 +95,8 @@
                         </div>
 
                         <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                            <div class="col-md-6 offset-md-4 text-center">
+                                <button type="submit" class="btn btn-primary" style="background-color: #FFA500; border-color: #FFA500;">
                                     {{ __("Modifier") }}
                                 </button>
                             </div>

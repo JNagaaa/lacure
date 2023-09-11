@@ -24,7 +24,7 @@ class HorecaController extends Controller
     
     public function home()
     {
-        $allNews = News::where('section_id', 1)->paginate(5);
+        $allNews = News::where('section_id', 1)->orderBy('created_at', 'desc')->paginate(5);
         return view('horeca/home', compact('allNews'));
     }
 
@@ -62,6 +62,8 @@ class HorecaController extends Controller
 
         $admins = User::where('admin', 1)->get();
         Notification::send($admins, new ReservationNotification($reservation));
+
+        return redirect('/users/reservations/one/' . $reservationId)->with('success', 'Réservation enregistrée avec succès!');
     }
 
     public function planning()

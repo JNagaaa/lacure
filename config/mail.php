@@ -57,6 +57,10 @@ return [
             // ],
         ],
 
+        'sendgrid' => [
+            'transport' => 'sendgrid',
+        ],
+
         'postmark' => [
             'transport' => 'postmark',
             // 'client' => [

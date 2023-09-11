@@ -44,17 +44,32 @@
                         </div>
                         <div class="row mb-3">
                             <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image de profil') }}</label>
-
                             <div class="col-md-6">
                                 <input id="imgload" type="file" class="form-control" name="image">
-
                                 @error('imgload')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
+                        
+                        <!-- Fenêtre modale -->
+                        <div id="imageModal" class="modal fade">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Sélectionner une partie de l'image</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="" id="imageToCrop">
+                                        <button id="cropImage">Sélectionner</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
 
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>

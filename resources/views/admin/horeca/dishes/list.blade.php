@@ -5,7 +5,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            <div class="card text-white" style="background-color: #333333;">
                 <div class="card-header">{{ __('Liste des plats') }}</div>
 
                 <div class="card-body">
@@ -19,8 +19,8 @@
                             </ul>
                         </div>
                     @endif
-                    <button id="addDishContent">Plats</button>
-                    <button id="addDishTypeContent">Types de plat</button>
+                    <button id="addDishContent" class="btn btn-primary" style="background-color: #FFA500; border-color: #FFA500;">Plats</button>
+                    <button id="addDishTypeContent" class="btn btn-primary" style="background-color: #FFA500; border-color: #FFA500;">Types de plat</button>
                     
                     <div id="dishesContent">
                         
