@@ -39,6 +39,12 @@ class AdminController extends Controller
         return view('admin/sports/news/edit', compact('news'));
     }
 
+    public function editNewsHoreca($id)
+    {
+        $news = News::find($id);
+        return view('admin/horeca/news/edit', compact('news'));
+    }
+
     public function updateNews(Request $request, $id)
     {
         $news = News::Find($id);
@@ -51,6 +57,18 @@ class AdminController extends Controller
         return redirect('/admin/sports/news/edit/' . $id)->with('success', 'Actualité modifiée avec succès!');
     }
 
+    public function updateNewsHoreca(Request $request, $id)
+    {
+        $news = News::Find($id);
+        
+        $news->title = $request->title;
+        $news->content = $request->content;
+
+        $news->update();
+
+        return redirect('/admin/horeca/news/edit/' . $id)->with('success', 'Actualité modifiée avec succès!');
+    }
+
     public function deleteNews($id)
     {
         $news = News::find($id);
@@ -58,6 +76,15 @@ class AdminController extends Controller
         $news->delete();
 
         return redirect('/admin/sports/news/list')->with('success', 'Actualité supprimée avec succès!');
+    }
+
+    public function deleteNewsHoreca($id)
+    {
+        $news = News::find($id);
+
+        $news->delete();
+
+        return redirect('/admin/horeca/news/list')->with('success', 'Actualité supprimée avec succès!');
     }
 
 

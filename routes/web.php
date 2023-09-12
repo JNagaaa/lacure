@@ -68,11 +68,11 @@ Route::get('drinks/types/delete/{id}', [App\Http\Controllers\DrinkController::cl
 //Actualités
 Route::get('/admin/horeca/news/list', [App\Http\Controllers\AdminController::class, 'listNewsHoreca'])->middleware('verified');
 Route::get('/admin/horeca/news/create', [App\Http\Controllers\NewsController::class, 'createHoreca'])->middleware('verified');
-Route::get('/admin/horeca/news/one/{id}', [App\Http\Controllers\NewsController::class, 'one'])->middleware('verified');
-Route::get('/admin/horeca/news/edit/{id}', [App\Http\Controllers\NewsController::class, 'edit'])->middleware('verified');
-Route::post('news/store', [App\Http\Controllers\NewsController::class, 'store'])->middleware('verified');
-Route::put('news/update/{id}', [App\Http\Controllers\AdminController::class, 'updateNews'])->middleware('verified');
-Route::get('news/delete/{id}', [App\Http\Controllers\NewsController::class, 'delete'])->middleware('verified');
+Route::get('/admin/horeca/news/one/{id}', [App\Http\Controllers\AdminController::class, 'one'])->middleware('verified');
+Route::get('/admin/horeca/news/edit/{id}', [App\Http\Controllers\AdminController::class, 'editNewsHoreca'])->middleware('verified');
+Route::post('news/storeHoreca', [App\Http\Controllers\NewsController::class, 'storeHoreca'])->middleware('verified');
+Route::put('news/updateHoreca/{id}', [App\Http\Controllers\AdminController::class, 'updateNewsHoreca'])->middleware('verified');
+Route::get('news/deleteHoreca/{id}', [App\Http\Controllers\AdminController::class, 'deleteNewsHoreca'])->middleware('verified');
 
 //Réservations
 Route::get('/admin/horeca/reservations/list', [App\Http\Controllers\ReservationController::class, 'listHoreca'])->middleware('verified');

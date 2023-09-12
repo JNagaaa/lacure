@@ -187,10 +187,10 @@ $(document).ready(function() {
                 var dishes = response.dishes; // Accédez au tableau des plats
                 var dishTypes = response.dishTypes; // Accédez au tableau des types de plat
                 
-                var html = '<a href="/admin/horeca/dishes/create" class="btn btn-primary">Ajouter un nouveau plat</a>';
+                var html = '<a href="/admin/horeca/dishes/create" class=" mt-2 mb-2 btn btn-primary d-flex justify-content-center" style="background-color: #FFA500; border-color: #FFA500;">Ajouter un nouveau plat</a>';
                 
                 // Création du select avec les options des types de plat
-                html += '<select id="dishTypeSelect">';
+                html += '<select id="dishTypeSelect" class="form-select mb-2">';
                 html += '<option value="">Sélectionnez un type de plat</option>';
                 for (var i = 0; i < dishTypes.length; i++) {
                     var dishType = dishTypes[i];
@@ -205,7 +205,7 @@ $(document).ready(function() {
                 for (var i = 0; i < dishes.length; i++) {
                     var dish = dishes[i];
                     
-                    html += '<li class="list-group-item d-flex justify-content-between align-items-center">';
+                    html += '<li class="list-group-item d-flex justify-content-between align-items-center text-white">';
                     html += dish.name;
                     html += '<div>';
                     html += '<a href="/admin/horeca/dishes/edit/' + dish.id + '" class="btn btn-warning active" role="button">Modifier</a>';
@@ -230,7 +230,7 @@ $(document).ready(function() {
                             var html = '';
                             for (var i = 0; i < filteredDishes.length; i++) {
                                 var dish = filteredDishes[i];
-                                html += '<li class="list-group-item d-flex justify-content-between align-items-center">';
+                                html += '<li class="text-white list-group-item d-flex justify-content-between align-items-center">';
                                 html += dish.name;
                                 html += '<div>';
                                 html += '<a href="/admin/horeca/dishes/edit/' + dish.id + '" class="btn btn-warning active" role="button">Modifier</a>';
@@ -333,10 +333,10 @@ $(document).ready(function() {
                 var drinks = response.drinks; // Accédez au tableau des boissons
                 var drinkTypes = response.drinkTypes; // Accédez au tableau des types de boisson
                 
-                var html = '<a href="/admin/horeca/drinks/create" class="btn btn-primary">Ajouter une nouvelle boisson</a>';
+                var html = '<a href="/admin/horeca/drinks/create" class="mt-2 mb-2 text-white d-flex justify-content-center btn btn-primary" style="background-color: #FFA500; border-color: #FFA500;">Ajouter une nouvelle boisson</a>';
                 
                 // Création du select avec les options des types de boisson
-                html += '<select id="drinkTypeSelect">';
+                html += '<select id="drinkTypeSelect" class="form-select mb-2">';
                 html += '<option value="">Sélectionnez un type de boisson</option>';
                 for (var i = 0; i < drinkTypes.length; i++) {
                     var drinkType = drinkTypes[i];
@@ -488,18 +488,19 @@ $(document).ready(function() {
             success: function(response) {
                 var users = response.users;
 
-                var html = '';
+                var html = '<div class="text-center">';
                 for (var i = 0; i < users.length; i++) {
                     var user = users[i];
-            
+                    
                     // Utilisez la concaténation normale pour ajouter la variable user.id à l'URL
                     var url = '/users/one/' + user.id;
-            
                     html += '<a href="' + url + '">';
-                    html += '<li class="list-group-item d-flex justify-content-between align-items-center">';
+                    html += '<div class="card" style="background-color: #555555">'
+                    html += '<li class="list-group-item d-flex justify-content-center text-center align-items-center text-white">';
                     html += user.name + ' ' + user.lastname;
-                    html += '</li></a>';
+                    html += '</li></div></a>';
                 }
+                html += "</div>"
 
                 $('#users-list').html(html);
             }
