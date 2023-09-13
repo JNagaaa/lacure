@@ -1,20 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid" style="background-color: #333333; color: #FFFFFF; padding: 20px; border-radius: 10px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __("Création d'une actualité") }}</div>
-
-                <div class="card-body">
-                    <a href="/admin/sports/news/list">{{ __("Retour à la liste des actualités")}}</a>
+            <div style="border: 1px solid #FFA500; padding: 25px; border-radius: 10px; background-color: #555555;">
+                <div class="text-center pb-2">
+                    <h2>Création d'une actualité</h2>
+                </div>
+                <div class="me-1 ms-1">
                     <form method="POST" action="{{ url('news/store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row mb-3">
-                            
-                            <label for="title" class="col-md-4 col-form-label text-md-end">{{ __("Titre") }}</label>
+                            <label for="title" class="col-md-4 col-form-label text-md-end">Titre</label>
 
                             <div class="col-md-6">
                                 <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" required autocomplete="title" autofocus>
@@ -31,7 +30,7 @@
                             <img src="{{ url('/images/defaultNews.png') }}" id="imgshow" style="width:120px; height:120px; border-radius:10%; margin-bottom:10px;">
                         </div>
                         <div class="row mb-3">
-                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __("Photo d'illustration") }}</label>
+                            <label for="image" class="col-md-4 col-form-label text-md-end">Photo d'illustration</label>
 
                             <div class="col-md-6">
                                 <input id="imgload" type="file" class="form-control" name="image">
@@ -58,12 +57,13 @@
                                 @enderror
                             </div>
                         </div>
-                        <input id="section_id" type="hidden" name="section_id" value="2"/>
+
+                        <input type="hidden" id="section_id" name="section_id" value="2"/>
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __("Publier") }}
+                                <button type="submit" class="btn btn-primary" style="background-color: #FFA500; border-color: #FFA500; width: 100%;">
+                                    Publier
                                 </button>
                             </div>
                         </div>

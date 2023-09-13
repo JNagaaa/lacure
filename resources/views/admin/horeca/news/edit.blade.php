@@ -17,7 +17,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form method="POST" action="{{ url('news/updateHoreca/'.$news->id) }}">
+                    <form method="POST" action="{{ url('news/updateHoreca/'.$news->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 

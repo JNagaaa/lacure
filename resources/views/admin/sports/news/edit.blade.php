@@ -1,13 +1,15 @@
 @extends('layouts.app')
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('content')
-<div class="container">
+<div class="container-fluid" style="background-color: #333333; color: #FFFFFF; padding: 20px; border-radius: 10px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header"><h3>{{ __("$news->title") }}</h3></div>
-
-                <div class="card-body">
+            <div style="border: 1px solid #FFA500; padding: 25px; border-radius: 10px; background-color: #555555;">
+                <div class="text-center pb-2">
+                    <h2>{{ $news->title }}</h2>
+                </div>
+                <div class="me-1 ms-1">
                     @if (\Session::has('success'))
                         <div class="alert alert-success">
                             <ul>
@@ -15,14 +17,20 @@
                             </ul>
                         </div>
                     @endif
-                    <a href="/admin/sports/news/list">{{ __("Retour à la liste des actualités")}}</a>
-                    <form method="POST" action="{{ url('news/update/'.$news->id) }}">
+                    <form method="POST" action="{{ url('news/update/'.$news->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
+                        <div class="text-center">
+                            @if($news->image != 'defaultPlate.png')
+                                <img style="width:120px; height:120px; border-radius:50%; margin-bottom:5px;" id="imgshow" src="{{url('storage/'.$news->image)}}">
+                            @else
+                                <img style="width:120px; height:120px; border-radius:50%; margin-bottom:5px;" id="imgshow" src="{{url('images/defaultNews.png')}}">
+                            @endif
+                        </div>
+
                         <div class="row mb-3">
-                            
-                            <label for="title" class="col-md-4 col-form-label text-md-end">{{ __("Numéro") }}</label>
+                            <label for="title" class="col-md-4 col-form-label text-md-end">Titre</label>
 
                             <div class="col-md-6">
                                 <input id="title" type="text" class="form-control @error('name') is-invalid @enderror" name="title" value="{{ $news->title }}" required autocomplete="title" autofocus>
@@ -35,16 +43,8 @@
                             </div>
                         </div>
 
-                        <div style="text-align:center;">
-                            @if($news->image != 'defaultNews.png')
-                                <img src="{{url('storage/'.$news->image)}}" id="imgshow" style="width:120px; height:120px; border-radius:50%;">
-                            @else
-                                <img src="{{url('images/default.png')}}" id="imgshow" style="width:120px; height:120px; border-radius:50%;">
-                            @endif
-                        </div>
-                        
                         <div class="row mb-3">
-                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image de profil') }}</label>
+                            <label for="image" class="col-md-4 col-form-label text-md-end" style="color: #FFFFFF;">Photo</label>
 
                             <div class="col-md-6">
                                 <input id="imgload" type="file" class="form-control" name="image" onchange="onFileSelected(event)">
@@ -52,11 +52,10 @@
                         </div>
 
                         <div class="row mb-3">
-                            
-                            <label for="content" class="col-md-4 col-form-label text-md-end">{{ __("Contenu") }}</label>
+                            <label for="content" class="col-md-4 col-form-label text-md-end">Contenu</label>
 
                             <div class="col-md-6">
-                                <textarea id="content" class="tinymce-editor form-control @error('content') is-invalid @enderror" name="content" autocomplete="content">{{ __("$news->content") }}</textarea>
+                                <textarea id="content" class="tinymce-editor form-control @error('content') is-invalid @enderror" name="content" autocomplete="content">{{ $news->content }}</textarea>
 
                                 @error('content')
                                     <span class="invalid-feedback" role="alert">
@@ -65,24 +64,23 @@
                                 @enderror
                             </div>
                         </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __("Modifier") }}
-                                </button>
+                        <div class="d-flex justify-content-center">
+                            <div class="row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary" style="background-color: #FFA500; border-color: #FFA500;">
+                                        Modifier
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button class="btn btn-danger">
+                                        <a href="{{ url('news/deleteHoreca/'.$news->id) }}" role="button" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette actualité?')" style="text-decoration: none; color: white;">Supprimer</a>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-
-                        
                     </form>
-                    <div class="row mb-0">
-                        <div class="col-md-6 offset-md-4">
-                            <button class="btn btn-primary">
-                                <a href="{{ url('admin/sports/news/delete/'.$news->id) }}" role="button" onclick="return confirm('Etes-vous sûr de vouloir supprimer cette actualité?')" style="text-decoration: none; color: white;">Supprimer</a>
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

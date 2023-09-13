@@ -159,17 +159,23 @@ $(document).ready(function() {
                 
                 var fields = response.data.data;
 
-                var html = '';
+                var html = ''; 
+                
                 for (var i = 0; i < fields.length; i++) {
                     var field = fields[i];
-                    html += '<li class="list-group-item d-flex justify-content-between align-items-center">';
-                    html += 'Terrain numéro ' + field.number;
-                    html += '<div>';
+                    html += '<div class="col-md-6 mb-3">';
+                    html += '<div class="card" style="background-color: #555555; border: 1px solid #FFA500; border-radius: 10px;">';
+                    html += '<div class="card-body">';
+                    html += '<h5 class="card-title text-white text-center">';
+                    html += 'Terrain numéro ' + field.number + '</h5>';
+                    html += '<div class="d-flex justify-content-center">';
                     html += '<a href="/admin/sports/fields/edit/' + field.id + '" class="btn btn-warning active" role="button">Modifier</a>';
                     html += '<a href="/fields/delete/' + field.id + '" class="btn btn-danger active" role="button" onclick="return confirm(\'Etes-vous sûr de vouloir supprimer ce terrain?\')">Supprimer</a>';
-                    html += '</div>';
-                    html += '</li>';
+                    html += '</div></div></div></div>';
+
                 }
+
+                
         
                 $('#fields-list').html(html);
             }

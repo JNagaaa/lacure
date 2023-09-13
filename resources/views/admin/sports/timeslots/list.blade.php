@@ -1,14 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid" style="background-color: #333333; color: #FFFFFF; padding: 20px; border-radius: 10px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Liste des plages horaires') }}</div>
+            <div style="border: 1px solid #FFA500; padding: 25px; border-radius: 10px; background-color: #555555;">
+                <div class="text-center pb-2">
+                    <h2>Liste des plages horaires</h2>
+                </div>
 
                 <div class="card-body">
-
                     @if (\Session::has('success'))
                         <div class="alert alert-success">
                             <ul>
@@ -17,10 +18,8 @@
                         </div>
                     @endif
 
-                    
-                    
                     <div id="timeslotsContent">
-                        <button id="create" class="rounded-pill">Ajouter une nouvelle plage horaire</button>
+                        <button id="create" class="btn btn-primary d-flex justify-content-center mb-2" style="background-color: #FFA500; border-color: #FFA500; width: 100%;">Ajouter une nouvelle plage horaire</button>
                         <div id="createTimeslot"></div>
                         @foreach($timeslots as $timeslot)
                             <li id="timeslot_{{ $timeslot->id }}" class="list-group-item d-flex justify-content-between align-items-center">
@@ -44,3 +43,5 @@
     </div>
 </div>
 @endsection
+
+

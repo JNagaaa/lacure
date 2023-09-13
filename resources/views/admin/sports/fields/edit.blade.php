@@ -1,11 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid" style="background-color: #333333; color: #FFFFFF; padding: 20px; border-radius: 10px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __("Modification du terrain numéro $field->number") }}</div>
+            <div style="border: 1px solid #FFA500; padding: 25px; border-radius: 10px; background-color: #555555;">
+                <div class="text-center pb-2">
+                    <h2>{{ __("Modification du terrain numéro $field->number") }}</h2>
+                </div>
 
                 <div class="card-body">
                     @if (\Session::has('success'))
@@ -15,13 +17,11 @@
                             </ul>
                         </div>
                     @endif
-                    <a href="/admin/sports/fields/list">{{ __("Retour à la liste des terrains")}}</a>
                     <form method="POST" action="{{ url('fields/update/'.$field->id) }}">
                         @csrf
                         @method('PUT')
 
                         <div class="row mb-3">
-                            
                             <label for="number" class="col-md-4 col-form-label text-md-end">{{ __("Numéro") }}</label>
 
                             <div class="col-md-6">
@@ -55,7 +55,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" style="background-color: #FFA500; border-color: #FFA500; width: 100%;">
                                     {{ __("Modifier le terrain") }}
                                 </button>
                             </div>
