@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid" style="background-color: #333333; color: #FFFFFF; padding: 20px; border-radius: 10px;">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Inscription') }}</div>
+        <div class="col-md-6 col-sm-12">
+            <div style="border: 1px solid #FFA500; padding: 25px; border-radius: 10px; background-color: #555555;">
+                <div class="text-center">
+                    <h1>Inscription</h1>
 
-                <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nom') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end" style="color: white;">Nom</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="lastname" class="col-md-4 col-form-label text-md-end">{{ __('Prénom') }}</label>
+                            <label for="lastname" class="col-md-4 col-form-label text-md-end" style="color: white;">Prénom</label>
 
                             <div class="col-md-6">
                                 <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" required autocomplete="lastname" autofocus>
@@ -43,7 +43,7 @@
                             <img src="{{ url('/images/default.png') }}" id="imgshow" style="width:120px; height:120px; border-radius:50%; margin-bottom:10px;">
                         </div>
                         <div class="row mb-3">
-                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image de profil') }}</label>
+                            <label for="image" class="col-md-4 col-form-label text-md-end" style="color: white;">Image de profil</label>
                             <div class="col-md-6">
                                 <input id="imgload" type="file" class="form-control" name="image">
                                 @error('imgload')
@@ -54,25 +54,8 @@
                             </div>
                         </div>
                         
-                        <!-- Fenêtre modale -->
-                        <div id="imageModal" class="modal fade">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Sélectionner une partie de l'image</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img src="" id="imageToCrop">
-                                        <button id="cropImage">Sélectionner</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end" style="color: white;">Email Address</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -86,7 +69,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-end" style="color: white;">Password</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -100,7 +83,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end" style="color: white;">Confirm Password</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -108,9 +91,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="newsletter" class="col-md-4 col-form-label text-md-end">{{ __('Newsletter') }}</label>
                             <div class="col-md-6">
-                                <input id="newsletter" type="checkbox" class="form-check-input @error('newsletter') is-invalid @enderror" name="newsletter" autofocus>
+                                <label for="newsletter" class="col-md-4 col-form-label" style="color: white;">Newsletter</label>
+                                <input id="newsletter" type="checkbox" class="mt-2form-check-input @error('newsletter') is-invalid @enderror" name="newsletter" autofocus>
                                 @error('newsletter')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -119,10 +102,10 @@
                             </div>
                         </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                        <div class="row mb-0 justify-content-center">
+                            <div class="col-md-6 text-center">
+                                <button type="submit" class="btn btn-primary" style="background-color: #FFA500; border-color: #FFA500;">
+                                    {{ __("S'inscrire") }}
                                 </button>
                             </div>
                         </div>
