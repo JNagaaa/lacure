@@ -980,7 +980,7 @@ $(document).ready(function() {
                 
                 
                 // Création du select avec les options des types de plat
-                var html = '<select id="dishTypeSelect">';
+                var html = '<select class="form-select mb-3" id="dishTypeSelect">';
                 html += '<option value="">Tous les plats</option>';
                 for (var i = 0; i < dishTypes.length; i++) {
                     var dishType = dishTypes[i];
@@ -1002,15 +1002,16 @@ $(document).ready(function() {
                         var baseUrl = $('#dishesNull').data('base-url');
                     }
                     
-                    html += '<div class="card col mb-3 p-0 me-1 ms-1 text-center" style="min-width: 150px;">';
-                    html += '<div class="card-header">'
-                    html += '<img src="' + baseUrl + '/' + dish.image + '" style="width:100px; height:100px; border-radius:10%;"/><br>';
-                    html += dish.name;
-                    html += '</div><div class="card-body me-2 ms-2">'
+                    html += '<div class="col-lg-4 col-md-6 col-12 mb-3">';
+                    html += '<div class="card p-0 text-center" style="border: 1px solid #FFA500; border-radius: 10px; background-color: #443f39;">';
+                    html += '<div class="card-header" style="background-color: #443f39; color: #FFFFFF; border-top-left-radius: 10px; border-top-right-radius: 10px;">';
+                    html += '<img src="' + baseUrl + '/' + dish.image + '" style="height:180px; width:250px; border-radius:10%;"/><br>';
+                    html += '</div><div class="card-body p-2 text-white" style="background-color: #333333;">';
+                    html += '<h4 class="text-decoration-underline">' + dish.name + '</h4>';
                     html += dish.description;
                     html += '<br>';
                     html += dish.price;
-                    html += 'euros</div></div>';
+                    html += 'euros</div></div></div>';
                 }
 
                 html += '</div></div>'; // closing the div here
@@ -1035,15 +1036,16 @@ $(document).ready(function() {
                                     var baseUrl = $('#dishesNull').data('base-url');
                                 }
                                 
-                                html += '<div class="card col mb-3 p-0 me-1 ms-1 text-center" style="min-width: 150px;">';
-                                html += '<div class="card-header">'
-                                html += '<img src="' + baseUrl + '/' + dish.image + '" style="width:100px; height:100px; border-radius:10%;"/><br>';
-                                html += dish.name;
-                                html += '</div><div class="card-body me-2 ms-2">'
+                                html += '<div class="col-lg-4 col-md-6 col-12 mb-3">';
+                                html += '<div class="card p-0 text-center" style="border: 1px solid #FFA500; border-radius: 10px; background-color: #443f39;">';
+                                html += '<div class="card-header" style="background-color: #443f39; color: #FFFFFF; border-top-left-radius: 10px; border-top-right-radius: 10px;">';
+                                html += '<img src="' + baseUrl + '/' + dish.image + '" style="width:250px; height: 180px; border-radius:10%;"/><br>';
+                                html += '</div><div class="card-body p-2 text-white" style="background-color: #333333;">';
+                                html += '<h4 class="text-decoration-underline">' + dish.name + '</h4>';
                                 html += dish.description;
                                 html += '<br>';
                                 html += dish.price;
-                                html += 'euros</div></div>';
+                                html += 'euros</div></div></div>';
                             }
                             html += '</div>';
                             $('#dishesList').html(html);
@@ -1069,7 +1071,7 @@ $(document).ready(function() {
                 
                 
                 // Création du select avec les options des types de plat
-                var html = '<select id="drinkTypeSelect">';
+                var html = '<select class="form-select mb-3" id="drinkTypeSelect">';
                 html += '<option value="">Toutes les boissons</option>';
                 for (var i = 0; i < drinkTypes.length; i++) {
                     var drinkType = drinkTypes[i];
@@ -1090,13 +1092,14 @@ $(document).ready(function() {
                         var baseUrl = $('#dishesNull').data('base-url');
                     }
                     
-                    html += '<div class="card col mb-3 p-0 me-1 ms-1 text-center" style="min-width: 150px;">';
-                    html += '<div class="card-header">'
-                    html += '<img src="' + baseUrl + '/' + drink.image + '" style="width:100px; height:100px; border-radius:10%;"/><br>';
-                    html += drink.name;
-                    html += '</div><div class="card-body me-2 ms-2">'
+                    html += '<div class="col-lg-4 col-md-6 col-12 mb-3">';
+                    html += '<div class="card p-0 text-center" style="border: 1px solid #FFA500; border-radius: 10px; background-color: #443f39;">';
+                    html += '<div class="card-header" style="background-color: #443f39; color: #FFFFFF; border-top-left-radius: 10px; border-top-right-radius: 10px;">';
+                    html += '<img src="' + baseUrl + '/' + drink.image + '" style="width:200px; height:250px; border-radius:10%;"/><br>';
+                    html += '</div><div class="card-body p-2 text-white" style="background-color: #333333;">';
+                    html += '<h4 class="text-decoration-underline">' + drink.name + '</h4>';
                     html += drink.description;
-                    html += '</div></div>';
+                    html += '</div></div></div>';
                 }
 
                 html += '</div></div>'; // closing the div here
@@ -1121,13 +1124,14 @@ $(document).ready(function() {
                                     var baseUrl = $('#drinksNull').data('base-url');
                                 }
                                 
-                                html += '<div class="card col mb-3 p-0 me-1 ms-1 text-center" style="min-width: 150px;">';
-                                html += '<div class="card-header">'
-                                html += '<img src="' + baseUrl + '/' + drink.image + '" style="width:100px; height:100px; border-radius:10%;"/><br>';
-                                html += drink.name;
-                                html += '</div><div class="card-body me-2 ms-2">'
+                                html += '<div class="col-lg-4 col-md-6 col-12 mb-3">';
+                                html += '<div class="card p-0 text-center" style="border: 1px solid #FFA500; border-radius: 10px; background-color: #443f39;">';
+                                html += '<div class="card-header" style="background-color: #443f39; color: #FFFFFF; border-top-left-radius: 10px; border-top-right-radius: 10px;">';
+                                html += '<img src="' + baseUrl + '/' + drink.image + '" style="width:200px; height:250px; border-radius:10%;"/><br>';
+                                html += '</div><div class="card-body p-2 text-white" style="background-color: #333333;">';
+                                html += '<h4 class="text-decoration-underline">' + drink.name + '</h4>';
                                 html += drink.description;
-                                html += '</div></div>';
+                                html += '</div></div></div>';
                             }
                             html += '</div>';
                             $('#drinksList').html(html);

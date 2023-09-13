@@ -10,13 +10,6 @@
                 </div>
 
                 <div class="card-body text-center">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{ url('/') }}">Accueil</a></li>
-                            <li class="breadcrumb-item"><a href="{{ url('/users/reservations/' . Auth::user()->id) }}">Mes réservations</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Détails de la réservation</li>
-                        </ol>
-                    </nav>
                     <p class="m-0">Date: {{ $reservation->date }}</p>
                     <p class="mt-0">Heure de début : {{ $reservation->timeslot->start_time }}</p>
                     

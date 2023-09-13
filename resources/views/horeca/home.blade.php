@@ -1,24 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid" style="background-color: #333333; color: #FFFFFF; padding: 20px; border-radius: 10px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Quoi de neuf côté Horeca?') }}</div>
+            <div style="border: 1px solid #FFA500; padding: 25px; border-radius: 10px; background-color: #555555;">
+                <div class="text-center">
+                    <h1>Quoi de neuf côté Horeca?</h1>
 
-                <div class="card-body text-center">
                     @if(isset($allNews) && $allNews->isNotEmpty())
                         @foreach($allNews as $news)
-                            <div class="mb-4 p-3 border rounded">
-                                <h3>{{ $news->title }}</h3>
+                            <div class="mb-4 p-3 border rounded" style="background-color: #555555;">
+                                <h3 style="color: #FFFFFF;">{{ $news->title }}</h3>
                                 @if($news->image != 'defaultNews.png')
-                                <img src="{{ url('storage/' . $news->image) }}" alt="Image de la news" class="img-fluid mb-2">
+                                    <img src="{{ url('storage/' . $news->image) }}" alt="Image de la news" class="img-fluid mb-2">
                                 @endif                                
                                 <?= $news->content ?>
-                                <p class="text-muted">Publiée le {{ $news->created_at->format('d/m/Y H:i') }}</p>
+                                <p class="text-muted" style="color: #FFA500;">Publiée le {{ $news->created_at->format('d/m/Y H:i') }}</p>
                                 @if($news->updated_at && $news->updated_at != $news->created_at)
-                                    <p class="text-muted">Modifiée le {{ $news->updated_at->format('d/m/Y H:i') }}</p>
+                                    <p class="text-muted" style="color: #FFA500;">Modifiée le {{ $news->updated_at->format('d/m/Y H:i') }}</p>
                                 @endif
                             </div>
                         @endforeach
@@ -28,11 +28,11 @@
                                 {{-- Previous Page Link --}}
                                 @if ($allNews->onFirstPage())
                                     <li class="page-item disabled">
-                                        <span class="page-link">Previous</span>
+                                        <span class="page-link">Précédent</span>
                                     </li>
                                 @else
                                     <li class="page-item">
-                                        <a class="page-link" href="{{ $allNews->previousPageUrl() }}" rel="prev">Previous</a>
+                                        <a class="page-link" href="{{ $allNews->previousPageUrl() }}" rel="prev" style="background-color: #FFA500; border-color: #FFA500; color: white;">Précédent</a>
                                     </li>
                                 @endif
                         
@@ -40,11 +40,11 @@
                                 {{-- Next Page Link --}}
                                 @if ($allNews->hasMorePages())
                                     <li class="page-item">
-                                        <a class="page-link" href="{{ $allNews->nextPageUrl() }}" rel="next">Next</a>
+                                        <a class="page-link" href="{{ $allNews->nextPageUrl() }}" rel="next" style="background-color: #FFA500; border-color: #FFA500; color:white;">Suivant</a>
                                     </li>
                                 @else
                                     <li class="page-item disabled">
-                                        <span class="page-link">Next</span>
+                                        <span class="page-link">Suivant</span>
                                     </li>
                                 @endif
                             </ul>
@@ -58,11 +58,3 @@
     </div>
 </div>
 @endsection
-
-
-
-
-
-
-
-
