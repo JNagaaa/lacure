@@ -16,9 +16,9 @@
                                     <img src="{{ url('storage/' . $news->image) }}" alt="Image de la news" class="img-fluid mb-2">
                                 @endif                                
                                 <?= $news->content ?>
-                                <p class="text-muted" style="color: #FFA500;">Publiée le {{ $news->created_at->format('d/m/Y H:i') }}</p>
+                                <p class="text-white font-italic pt-3 pb-0">Publiée le {{ $news->created_at->format('d/m/Y H:i') }}</p>
                                 @if($news->updated_at && $news->updated_at != $news->created_at)
-                                    <p class="text-muted" style="color: #FFA500;">Modifiée le {{ $news->updated_at->format('d/m/Y H:i') }}</p>
+                                    <p class="text-white font-italic pt-1">Modifiée le {{ $news->updated_at->format('d/m/Y H:i') }}</p>
                                 @endif
                             </div>
                         @endforeach

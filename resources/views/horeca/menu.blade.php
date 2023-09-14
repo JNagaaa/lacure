@@ -10,7 +10,6 @@
 
                     <div class="text-center pb-3 d-flex justify-content-center flex-wrap">
                         <button id="dishesBtn" class="md-me-2 sm-me-2 btn btn-primary btnAdmin btnDishes btn-lg m-3 rounded-pill" style="background-color: #FFA500; border-color: #FFA500;">Afficher les plats</button>
-                        <br>
                         <button id="drinksBtn" class="md-ms-2 sm-ms-2 btn btn-primary btnAdmin btnDrinks btn-lg m-3 rounded-pill" style="background-color: #FFA500; border-color: #FFA500;">Afficher les boissons</button>
                     </div>
 

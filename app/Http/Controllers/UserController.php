@@ -67,7 +67,7 @@ class UserController extends Controller
         if($request->input('member') == "on" && $user->member == 0)
         {
             $user->member = 1;
-            $user->hrsremaining = 30;
+            $user->hrsremaining = 15;
             $user->date_member = now();
             $user->notify(new NewMemberNotification);
         }
@@ -88,7 +88,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         $user->date_member = now();
-        $user->hrsremaining = 30;
+        $user->hrsremaining = 15;
 
         $user->update();
 

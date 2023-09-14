@@ -33,7 +33,7 @@ return new class extends Migration
             'lastname' =>'Admin',
             'email'=>'j.naga@outlook.com',
             'newsletter'=>'0',
-            'hrsremaining'=>'30',
+            'hrsremaining'=>'15',
             'member'=>'1',
             'admin'=>'1',
             'password'=>'$2y$10$10PDL3GfyiLTGxKqr0x.P.yb.NR0STEt9QVbfyfh4cluIiBjhrV8i',

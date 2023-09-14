@@ -23,17 +23,15 @@ class SendBulkEmail implements ShouldQueue
     protected $news;
     protected $batchSize;
 
-    public function __construct($news, $batchSize = 40)
+    public function __construct($news)
     {
         $this->news = $news;
-        $this->batchSize = $batchSize;
     }
 
     public function handle()
     {
         try {
             $users = User::where('newsletter', 1)
-                        ->take($this->batchSize)
                         ->get();
 
 
