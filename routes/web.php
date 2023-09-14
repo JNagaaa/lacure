@@ -21,6 +21,9 @@ Route::get('/', function () {
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 
+// Route vers les conditions d'utilisation
+Route::get('/conditions', [App\Http\Controllers\HomeController::class, 'conditions']);
+
 
 //Routes d'authentification
 Auth::routes(['verify' => true]);
@@ -70,7 +73,7 @@ Route::get('/admin/horeca/news/list', [App\Http\Controllers\AdminController::cla
 Route::get('/admin/horeca/news/create', [App\Http\Controllers\NewsController::class, 'createHoreca'])->middleware('verified');
 Route::get('/admin/horeca/news/one/{id}', [App\Http\Controllers\AdminController::class, 'one'])->middleware('verified');
 Route::get('/admin/horeca/news/edit/{id}', [App\Http\Controllers\AdminController::class, 'editNewsHoreca'])->middleware('verified');
-Route::post('news/storeHoreca', [App\Http\Controllers\NewsController::class, 'storeHoreca'])->middleware('verified');
+Route::post('news/storeHoreca', [App\Http\Controllers\NewsController::class, 'store'])->middleware('verified');
 Route::put('news/updateHoreca/{id}', [App\Http\Controllers\AdminController::class, 'updateNewsHoreca'])->middleware('verified');
 Route::get('news/deleteHoreca/{id}', [App\Http\Controllers\AdminController::class, 'deleteNewsHoreca'])->middleware('verified');
 

@@ -181,7 +181,7 @@
                     <p>Téléphone : 123-456-7890</p>
                 </div>
                 <div class="col-md-4">
-                    <h4>Conditions d'utilisations</h4>
+                    <h4><a href="{{ url('/conditions') }}" class="text-decoration-none">Conditions d'utilisations</a></h4>
                 </div>
                 <div class="col-md-4">
                     <h4>Contact sports:</h4>
