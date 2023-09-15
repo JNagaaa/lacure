@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Reservation;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -65,5 +65,12 @@ class ReservationController extends Controller
     {
         $reservation = Reservation::Find($id);
         return view('users/reservations/one', compact('reservation'));
+    }
+
+    public function delete($id)
+    {
+        $reservation = Reservation::Find($id);
+        $reservation->delete();
+        return view('/home');
     }
 }

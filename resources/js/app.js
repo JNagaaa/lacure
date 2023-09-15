@@ -862,7 +862,7 @@ $(document).ready(function() {
                         }
                     }
                     if (!isAlreadySelected) {
-                        list.append(`<li class="search-result-item">${user.name} ${user.lastname}</li>`);
+                        list.append(`<li class="list-unstyled search-result-item">${user.name} ${user.lastname}</li>`);
                         // Ajouter l'ID réel de l'utilisateur comme attribut data-id du résultat de recherche
                         list.children().last().attr('data-id', user.id);
                     }
@@ -882,7 +882,7 @@ $(document).ready(function() {
         // Remplacer la barre de recherche par le nom de l'utilisateur sélectionné
         const $searchWrapper = $('#' + inputId).closest('.search-wrapper');
         $searchWrapper.empty();
-        $searchWrapper.append(`<span>${user.name} ${user.lastname} <button class="cancel-btn" data-id="${user.id}" data-list-id="${inputId}">Annuler</button></span>`);
+        $searchWrapper.append(`<span>${user.name} ${user.lastname} <button class="ms-3 cancel-btn btn btn-primary btn-sm btn-danger" data-id="${user.id}" data-list-id="${inputId}">Annuler</button></span>`);
 
         const hiddenInputId = inputId.replace('search', 'selectedUsers');
         $('#' + hiddenInputId).val(user.id);

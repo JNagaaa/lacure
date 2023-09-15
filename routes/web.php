@@ -113,7 +113,7 @@ Route::get('fields/filter', [App\Http\Controllers\FieldController::class, 'filte
 //Réservations
 Route::get('/admin/sports/reservations/list', [App\Http\Controllers\ReservationController::class, 'listSports'])->middleware('verified');
 Route::get('/admin/sports/reservations/one/{id}', [App\Http\Controllers\ReservationController::class, 'oneSports'])->middleware('verified');
-Route::get('/admin/sports/reservations/edit/{id}', [App\Http\Controllers\ReservationController::class, 'editSports'])->middleware('verified');
+Route::get('/users/reservations/delete/{id}', [App\Http\Controllers\ReservationController::class, 'delete'])->middleware('verified');
 
 
 //Plages horaires
