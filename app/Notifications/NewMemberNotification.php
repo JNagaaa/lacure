@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Auth;
+
 
 class NewMemberNotification extends Notification
 {
@@ -35,7 +37,7 @@ class NewMemberNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'message' => 'Vous êtes à présent membre sportif.'
+            'message' => '<div class="notification-title border-bottom pb-2"><a href="' . url('users/one', [Auth::user()->id]) . '" style="text-decoration: none; color: black; display: block; width: 100%;">Vous avez été promu membre sportif.'
         ];
     }
 

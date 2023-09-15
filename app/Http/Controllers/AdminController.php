@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\News;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -60,9 +61,23 @@ class AdminController extends Controller
     public function updateNewsHoreca(Request $request, $id)
     {
         $news = News::Find($id);
-        
+            
         $news->title = $request->title;
         $news->content = $request->content;
+
+        if($request->image)
+        {
+            Storage::delete('images/'.$news->image);
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            ]);
+            $imageName = time().'.'.$request->image->extension();
+            
+            $news->image = $imageName;
+            $request->image->storeAs('images', $imageName);
+        }
+
+        
 
         $news->update();
 

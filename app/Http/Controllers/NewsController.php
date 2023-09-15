@@ -6,8 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewsPublished;
-use App\Jobs\SendBulkEmail;
-
 
 
 class NewsController extends Controller
@@ -40,35 +38,44 @@ class NewsController extends Controller
         return view('/sports/news/one', compact('news'));
     }
 
+
+
     public function store(Request $request)
     {
-        if($request->image != NULL)
-        {
+        if ($request->image) {
             $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
-            $imageName = time().'.'.$request->image->extension();
+            $imageName = time() . '.' . $request->image->extension();
             $request->image->storeAs('images', $imageName);
         }
 
         $news = new News([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
-            'image' => $request->input('image') == NULL ? 'defaultNews.png' : $imageName,
+            'image' => $request->image == NULL ? 'defaultNews.png' : $imageName,
             'section_id' => $request->input('section_id'),
         ]);
-    
+
         $news->save();
-    
-        dispatch(new SendBulkEmail($news))->onQueue('bulk_email'); // Envoie le job à la file d'attente 'bulk_email'
-        if($news->section_id == 1)
-        {
+
+        $subscribedUsers = User::where('newsletter', 1)->get();
+        foreach ($subscribedUsers as $user) {
+            Mail::to($user->email)->send(new NewsPublished([
+                'title' => $news->title,
+                'content' => $news->content,
+                'news_link' => $request->section_id == 1 ? url('horeca/home') : url('sports/home')
+            ]));
+        }
+
+        if ($news->section_id == 1) {
             return redirect('/horeca/home')->with('success', 'Actualité publiée avec succès!');
         } else {
             return redirect('/sports/home')->with('success', 'Actualité publiée avec succès!');
         }
     }
+
 
     public function update(Request $request, $id)
         {
@@ -90,7 +97,7 @@ class NewsController extends Controller
                 $request->image->storeAs('images', $imageName);
             }
 
-            $drink->update();
+            $news->update();
 
             return redirect('/admin/horeca/news/one/' . $id)->with('success', 'Actualité modifiée avec succès!');
         }

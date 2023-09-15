@@ -69,7 +69,7 @@ class UserController extends Controller
             $user->member = 1;
             $user->hrsremaining = 15;
             $user->date_member = now();
-            $user->notify(new NewMemberNotification);
+            $user->notify(new NewMemberNotification, $user);
         }
 
         if($request->input('member') != "on" && $user->member == 1)

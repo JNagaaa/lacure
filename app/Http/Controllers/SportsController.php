@@ -81,43 +81,58 @@ class SportsController extends Controller
     }
 
     public function setBooking(Request $request)
-    {
-        
-        $reservation = new Reservation(
-            [
-                'date' => $request->input('date'),
-                'field_id' => $request->input('field_id'),
-                'timeslot_id' => $request->input('timeslot_id'),
-                'section_id' => 2,
+{
+    $userIds = $request->input('selectedUsers');
+    $errors = [];
+
+    // Vérification des erreurs potentielles
+    foreach ($userIds as $index => $userId) {
+        if ($userId) {
+            $userObject = User::find($userId);
+            if ($userObject->hrsremaining <= 0) {
+                $errors["selectedUsers.$index"] = "$userObject->name $userObject->lastname a atteint son quota de sessions pour ce mois";
+            }
+        }
+    }
+
+    // Si des erreurs ont été trouvées, renvoyez-les
+    if (count($errors) > 0) {
+        return redirect()->back()->withErrors($errors);
+    }
+
+    // Sinon, créez la réservation et continuez
+    $reservation = new Reservation([
+        'date' => $request->input('date'),
+        'field_id' => $request->input('field_id'),
+        'timeslot_id' => $request->input('timeslot_id'),
+        'section_id' => 2,
+    ]);
+
+    $reservation->save();
+    $reservationId = $reservation->id;
+
+    // Création des associations entre les utilisateurs et la réservation
+    foreach ($userIds as $userId) {
+        if ($userId) {
+            $userObject = User::find($userId);
+            $reservationUser = new ReservationUser([
+                'user_id' => $userId,
+                'reservation_id' => $reservationId,
             ]);
 
-        $reservation->save();
-
-        $reservationId = $reservation->id;
-        
-        $userIds = $request->input('selectedUsers');
-        
-        foreach($userIds as $userId)
-        {
-            $userObject = User::find($userId);
-
-            $reservationUser = new ReservationUser(
-                [
-                    'user_id' => $userId,
-                    'reservation_id' => $reservationId,
-                ]);
-            
             $userObject->hrsremaining -= 1;
 
             $reservationUser->save();
             $userObject->save();
         }
-
-        $admins = User::where('admin', 1)->get();
-        Notification::send($admins, new ReservationNotification($reservation));
-        
-        return redirect('/users/reservations/one/' . $reservationId)->with('success', 'Réservation enregistrée avec succès!');
     }
+
+    $admins = User::where('admin', 1)->get();
+    Notification::send($admins, new ReservationNotification($reservation));
+
+    return redirect('/users/reservations/one/' . $reservationId)->with('success', 'Réservation enregistrée avec succès!');
+}
+
 
 
 

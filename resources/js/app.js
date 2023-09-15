@@ -433,7 +433,7 @@ $(document).ready(function() {
         }
     });
 
-    // Attach event handler for .edit-btn inside #drinksContent
+
     $('#drinksContent').on('click', '#edit-btn', function() {
         var $li = $(this).closest('li');
         var drinkTypeName = $li.find('.drinkTypeName').text();
@@ -483,7 +483,7 @@ $(document).ready(function() {
         var searchTerm = $(this).val();
 
         if (searchTerm.trim() === '') {
-            $('#users-list').empty(); // Effacer la liste des utilisateurs si la barre de recherche est vide
+            $('#users-list').empty();
             return;
         }
 
@@ -498,7 +498,6 @@ $(document).ready(function() {
                 for (var i = 0; i < users.length; i++) {
                     var user = users[i];
                     
-                    // Utilisez la concaténation normale pour ajouter la variable user.id à l'URL
                     var url = '/users/one/' + user.id;
                     html += '<a href="' + url + '">';
                     html += '<div class="card" style="background-color: #555555">'
@@ -540,19 +539,14 @@ $(document).ready(function() {
     });
 
     $('#timeslotsContent').on('click', '.store-btn', function() {
-        // Sélectionner le formulaire et obtenir ses données sérialisées
         event.preventDefault();
         var formData = $('#createTimeslotForm').serialize();
-        console.log(formData);
 
-        // Envoi du formulaire via une requête AJAX
         $.ajax({
             url: '/timeslots/store',
             type: 'POST',
             data: formData,
             success: function(response) {
-                // Si la requête réussit, ajouter le nouveau timeslot à la liste
-                // en utilisant les données de réponse reçues du serveur
                 var newTimeslot = '<li class="list-group-item d-flex justify-content-between align-items-center">' +
                     '<span class="timeslot">' + response.startTime + ' -> ' + response.endTime + '</span>' +
                     '<div>' +
@@ -569,11 +563,9 @@ $(document).ready(function() {
 
                 $('#timeslotsContent').append(newTimeslot);
 
-                // Réinitialiser le formulaire pour permettre d'ajouter d'autres timeslots sans recharger la page
                 $('#createTimeslotForm')[0].reset();
             },
             error: function(error) {
-                // Gérer les erreurs en cas de problème avec la requête AJAX
                 console.error('Une erreur s\'est produite lors de la soumission du formulaire :', error);
             }
         });
@@ -618,7 +610,6 @@ $(document).ready(function() {
             }
         });
     
-        // Une fois la mise à jour terminée, mettez à jour la vue avec les nouvelles valeurs
         $li.find('.timeslot').text(startTime + ' -> ' + endTime).show();
         $li.find('.edit-fields').hide();
         $li.find('.edit-btn').show();
@@ -630,9 +621,7 @@ $(document).ready(function() {
         var timeslotId = $(this).data('id');
         var timeslotElement = document.getElementById('timeslot_' + timeslotId);
     
-        // Afficher la fenêtre de confirmation
         if (confirm('Etes-vous sûr de vouloir supprimer cette plage horaire?')) {
-            // Effectuer une action de suppression ici, par exemple en utilisant AJAX pour supprimer le timeslot dans la base de données
             $.ajax({
                 url: `/timeslots/delete/${timeslotId}`,
                 type: 'GET',
@@ -648,13 +637,11 @@ $(document).ready(function() {
                     
                 }
             });
-            // Une fois la suppression réussie, supprimer le timeslot de la page
             timeslotElement.remove();
         }
     });
 });
 
-//Horeca
 $(document).ready(function() {
     var isNewTimeslotAdded = false;
     
@@ -675,19 +662,15 @@ $(document).ready(function() {
     });
 
     $('#timeslotsContentHoreca').on('submit', function() {
-        // Sélectionner le formulaire et obtenir ses données sérialisées
         event.preventDefault();
         var formData = $('#createTimeslotFormHoreca').serialize();
 
-        // Envoi du formulaire via une requête AJAX
         $.ajax({
             url: '/timeslots/store',
             type: 'POST',
             data: formData,
             success: function(response) {
                 event.preventDefault();
-                // Si la requête réussit, ajouter le nouveau timeslot à la liste
-                // en utilisant les données de réponse reçues du serveur
                 var newTimeslot = '<li class="list-group-item d-flex justify-content-between align-items-center">' +
                     '<span class="timeslotHoreca">' + response.startTime + '</span>' +
                     '<div>' +
@@ -703,11 +686,9 @@ $(document).ready(function() {
 
                 $('#timeslotsContentHoreca').append(newTimeslot);
 
-                // Réinitialiser le formulaire pour permettre d'ajouter d'autres timeslots sans recharger la page
                 $('#createTimeslotFormHoreca')[0].reset();
             },
             error: function(error) {
-                // Gérer les erreurs en cas de problème avec la requête AJAX
                 console.error('Une erreur s\'est produite lors de la soumission du formulaire :', error);
             }
         });
@@ -750,7 +731,6 @@ $(document).ready(function() {
             }
         });
     
-        // Une fois la mise à jour terminée, mettez à jour la vue avec les nouvelles valeurs
         $li.find('.timeslotHoreca').text(startTime).show();
         $li.find('.edit-fields').hide();
         $li.find('.edit-btn').show();
@@ -762,9 +742,7 @@ $(document).ready(function() {
         var timeslotId = $(this).data('id');
         var timeslotElement = document.getElementById('timeslot_' + timeslotId);
     
-        // Afficher la fenêtre de confirmation
         if (confirm('Etes-vous sûr de vouloir supprimer cette plage horaire?')) {
-            // Effectuer une action de suppression ici, par exemple en utilisant AJAX pour supprimer le timeslot dans la base de données
             $.ajax({
                 url: `/timeslots/delete/${timeslotId}`,
                 type: 'GET',
@@ -780,14 +758,11 @@ $(document).ready(function() {
                     
                 }
             });
-            // Une fois la suppression réussie, supprimer le timeslot de la page
             timeslotElement.remove();
         }
     });
 });
 
-
-////////////////
 
 
 $(document).ready(function() {
@@ -826,7 +801,19 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    $('#fieldType').on('change', function() {
+        const selection = $(this).val();
 
+        if (selection === 'Simple') {
+            $('.player:gt(1)').hide();  // Cache tous les champs après les deux premiers
+        } else {
+            $('.player').show();  // Affiche tous les champs
+        }
+    });
+
+    $('#fieldType').trigger('change');  // Déclenche la fonction au chargement pour configurer l'affichage initial
+});
 
 $(document).ready(function() {
     // Liste pour stocker les utilisateurs sélectionnés
@@ -1005,7 +992,7 @@ $(document).ready(function() {
                     html += '<div class="col-lg-4 col-md-6 col-12 mb-3">';
                     html += '<div class="card p-0 text-center" style="border: 1px solid #FFA500; border-radius: 10px; background-color: #443f39;">';
                     html += '<div class="card-header" style="background-color: #443f39; color: #FFFFFF; border-top-left-radius: 10px; border-top-right-radius: 10px;">';
-                    html += '<img src="' + baseUrl + '/' + dish.image + '" style="height:180px; width:250px; border-radius:10%;"/><br>';
+                    html += '<img src="' + baseUrl + '/' + dish.image + '" alt="Image du plat" style="height:180px; width:250px; border-radius:10%;"/><br>';
                     html += '</div><div class="card-body p-2 text-white" style="background-color: #333333;">';
                     html += '<h4 class="text-decoration-underline">' + dish.name + '</h4>';
                     html += dish.description;
@@ -1039,7 +1026,7 @@ $(document).ready(function() {
                                 html += '<div class="col-lg-4 col-md-6 col-12 mb-3">';
                                 html += '<div class="card p-0 text-center" style="border: 1px solid #FFA500; border-radius: 10px; background-color: #443f39;">';
                                 html += '<div class="card-header" style="background-color: #443f39; color: #FFFFFF; border-top-left-radius: 10px; border-top-right-radius: 10px;">';
-                                html += '<img src="' + baseUrl + '/' + dish.image + '" style="width:250px; height: 180px; border-radius:10%;"/><br>';
+                                html += '<img src="' + baseUrl + '/' + dish.image + '" alt="Image du plat" style="width:250px; height: 180px; border-radius:10%;"/><br>';
                                 html += '</div><div class="card-body p-2 text-white" style="background-color: #333333;">';
                                 html += '<h4 class="text-decoration-underline">' + dish.name + '</h4>';
                                 html += dish.description;
@@ -1095,7 +1082,7 @@ $(document).ready(function() {
                     html += '<div class="col-lg-4 col-md-6 col-12 mb-3">';
                     html += '<div class="card p-0 text-center" style="border: 1px solid #FFA500; border-radius: 10px; background-color: #443f39;">';
                     html += '<div class="card-header" style="background-color: #443f39; color: #FFFFFF; border-top-left-radius: 10px; border-top-right-radius: 10px;">';
-                    html += '<img src="' + baseUrl + '/' + drink.image + '" style="width:200px; height:250px; border-radius:10%;"/><br>';
+                    html += '<img src="' + baseUrl + '/' + drink.image + '" alt="Image de la boisson"  style="width:200px; height:250px; border-radius:10%;"/><br>';
                     html += '</div><div class="card-body p-2 text-white" style="background-color: #333333;">';
                     html += '<h4 class="text-decoration-underline">' + drink.name + '</h4>';
                     html += drink.description;
@@ -1127,7 +1114,7 @@ $(document).ready(function() {
                                 html += '<div class="col-lg-4 col-md-6 col-12 mb-3">';
                                 html += '<div class="card p-0 text-center" style="border: 1px solid #FFA500; border-radius: 10px; background-color: #443f39;">';
                                 html += '<div class="card-header" style="background-color: #443f39; color: #FFFFFF; border-top-left-radius: 10px; border-top-right-radius: 10px;">';
-                                html += '<img src="' + baseUrl + '/' + drink.image + '" style="width:200px; height:250px; border-radius:10%;"/><br>';
+                                html += '<img src="' + baseUrl + '/' + drink.image + '" alt="Image de la boisson" style="width:200px; height:250px; border-radius:10%;"/><br>';
                                 html += '</div><div class="card-body p-2 text-white" style="background-color: #333333;">';
                                 html += '<h4 class="text-decoration-underline">' + drink.name + '</h4>';
                                 html += drink.description;

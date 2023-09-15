@@ -13,7 +13,7 @@
                         @csrf
 
                         <div class="text-center">
-                            <img src="{{ url('/images/defaultDrink.png') }}" id="imgshow" style="width:120px; height:120px; border-radius:10%; margin-bottom:10px;">
+                            <img src="{{ url('/images/defaultDrink.png') }}" alt="Image de la boisson" id="imgshow" style="width:120px; height:120px; border-radius:10%; margin-bottom:10px;">
                         </div>
 
                         <div class="row mb-3">

@@ -40,9 +40,9 @@
 
                         <div class="text-center mt-4">
                             @if($user->image != NULL)
-                                <img src="{{url('storage/'.$user->image)}}" id="imgshow" style="width:120px; height:120px; border-radius:50%;">
+                                <img src="{{url('storage/'.$user->image)}}" alt="Image de profil" id="imgshow" style="width:120px; height:120px; border-radius:50%;">
                             @else
-                                <img src="{{url('images/default.png')}}" id="imgshow" style="width:120px; height:120px; border-radius:50%;">
+                                <img src="{{url('images/default.png')}}" alt="Image de profil" id="imgshow" style="width:120px; height:120px; border-radius:50%;">
                             @endif
                         </div>
                         <br>

@@ -22,28 +22,36 @@
                                 @foreach($timeslots as $timeslot)
                                     @php
                                         $isTimeslotAvailable = true;
-                                        $reservationUsers = [];
+                                        $reservationId = null;
                                         if(!empty($reservations))
                                         {
                                             foreach ($reservations as $reservation) {
                                                 if ($reservation->timeslot_id === $timeslot->id && $reservation->table_id === $table->id) {
                                                     $isTimeslotAvailable = false;
+                                                    $reservationId = $reservation->id;
                                                     break;
                                                 }
                                             }
                                         }
                                     @endphp
                                     @if($isTimeslotAvailable)
-                                    <a href="{{ route('bookingTable', ['date' => $date, 'table_id' => $table->id, 'timeslot_id' => $timeslot->id]) }}" class="btn btn-primary btn-lg mb-2" style="background-color: #FFA500; border-color: #FFA500; width: 100%;">
-                                        {{ $timeslot->start_time }}
-                                    </a>
-                                    <br>
-                                    @else
-                                        <button type="button" class="btn btn-secondary btn-lg mb-2" disabled style="width: 100%;">
+                                        <a href="{{ route('bookingTable', ['date' => $date, 'table_id' => $table->id, 'timeslot_id' => $timeslot->id]) }}" class="btn btn-primary btn-lg mb-2" style="background-color: #FFA500; border-color: #FFA500; width: 100%;">
                                             {{ $timeslot->start_time }}
-                                        </button>
+                                        </a>
+                                        <br>
+                                    @else
+                                        @if(Auth::user()->admin == 1)
+                                            <a href="{{ url("users/reservations/one/$reservationId") }}" class="btn btn-secondary btn-lg mb-2" style="width: 100%;">
+                                                {{ $timeslot->start_time }}
+                                            </a>
+                                        @else
+                                            <button type="button" class="btn btn-secondary btn-lg mb-2" disabled style="width: 100%;">
+                                                {{ $timeslot->start_time }}
+                                            </button>
+                                        @endif
                                     @endif
                                 @endforeach
+
                             </div>
                         </div>
                     @endforeach

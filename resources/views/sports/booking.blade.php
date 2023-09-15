@@ -17,17 +17,50 @@
                             <input type="hidden" name="field_id" value="{{ $field_id }}">
                             <input type="hidden" name="timeslot_id" value="{{ $timeslot_id }}">
 
-                            @for ($i = 1; $i <= 4; $i++)
-                                <div class="mb-3">
-                                    <label for="search{{ $i }}" class="form-label" style="color: white;">Membre {{ $i }} :</label>
-                                    <div class="search-wrapper">
-                                        <input type="text" class="form-control search-input" id="search{{ $i }}" data-id="userList{{ $i }}">
-                                        <ul class="search-results" id="userList{{ $i }}"></ul>
-                                    </div>
-                                    <input type="hidden" name="selectedUsers[]" id="selectedUsers{{ $i }}" value="">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
                                 </div>
-                            @endfor
+                            @endif
 
+
+                            @if ($fieldType == "Tennis")
+                                <div class="mb-3">
+                                    <label for="fieldType" class="form-label" style="color: white;">Simple ou double :</label>
+                                    <select class="form-control" id="fieldType" name="field_type">
+                                        <option value="Simple">Simple</option>
+                                        <option value="Double">Double</option>
+                                    </select>
+                                </div>
+                                @for ($i = 1; $i <= 4; $i++)
+                                    <div class="mb-3 player">
+                                        <label for="search{{ $i }}" class="form-label" style="color: white;">Membre {{ $i }} :</label>
+                                        <div class="search-wrapper">
+                                            <input type="text" class="form-control search-input" id="search{{ $i }}" data-id="userList{{ $i }}">
+                                            <ul class="search-results" id="userList{{ $i }}"></ul>
+                                        </div>
+
+                                        <input type="hidden" name="selectedUsers[]" id="selectedUsers{{ $i }}" value="">
+                                    </div>
+                                @endfor
+
+
+                            @elseif ($fieldType == "Padel")
+                                @for ($i = 1; $i <= 4; $i++)
+                                    <div class="mb-3">
+                                        <label for="search{{ $i }}" class="form-label" style="color: white;">Membre {{ $i }} :</label>
+                                        <div class="search-wrapper">
+                                            <input type="text" class="form-control search-input" id="search{{ $i }}" data-id="userList{{ $i }}">
+                                            <ul class="search-results" id="userList{{ $i }}"></ul>
+                                        </div>
+                                        <input type="hidden" name="selectedUsers[]" id="selectedUsers{{ $i }}" value="">
+                                    </div>
+                                @endfor
+                            @endif
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary" style="background-color: #FFA500; border-color: #FFA500;">Envoyer</button>
                             </div>

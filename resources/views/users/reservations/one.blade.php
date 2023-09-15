@@ -30,6 +30,15 @@
                     @if ($reservation->section_id == 1)
                         <div class="row mb-4">
                             <div class="col-md-6 text-right">
+                                <strong>Table:</strong>
+                            </div>
+                            <div class="col-md-6 text-left">
+                                <p>{{ $reservation->table->number }} ({{ $reservation->table->capacity }} personnes)</p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6 text-right">
                                 <strong>Téléphone de contact:</strong>
                             </div>
                             <div class="col-md-6 text-left">
@@ -46,12 +55,22 @@
                             </div>
                         </div>
                     @else
+
                         <div class="row mb-4">
                             <div class="col-md-6 text-right">
                                 <strong>Heure de fin:</strong>
                             </div>
                             <div class="col-md-6 text-left">
                                 {{ $reservation->timeslot->end_time }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6 text-right">
+                                <strong>Terrain:</strong>
+                            </div>
+                            <div class="col-md-6 text-left">
+                                <p>{{ $reservation->field->number }} ({{ $reservation->field->type }})</p>
                             </div>
                         </div>
 

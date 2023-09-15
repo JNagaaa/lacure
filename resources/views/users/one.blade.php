@@ -47,7 +47,7 @@
                         @endif
                     </p>
                     @if($user->member == 1)                    
-                        <p>{{ __("Date adhésion membre: ") }}{{ \Carbon\Carbon::parse($user->date_member)->format('d/m/Y') }}</p>
+                        <p>{{ __("Membre depuis le: ") }}{{ \Carbon\Carbon::parse($user->date_member)->format('d/m/Y') }}</p>
                         <p>{{ __("Sessions restantes: $user->hrsremaining") }}</p>
                     @endif
                     @if($user->id == Auth::user()->id || Auth::user()->admin == 1)

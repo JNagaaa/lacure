@@ -28,9 +28,9 @@
                                 <div class="card-header" style="background-color: #443f39; color: #FFFFFF; border-top-left-radius: 10px; border-top-right-radius: 10px;">
                                     <h3>Terrain {{ $field->number }}</h3>
                                     @if($field->type == "Tennis")
-                                        <img src='{{ asset('src/img/tennis.webp') }}' style="width: 100px; padding-top: 10px;" class="img-fluid" alt="Terrain de Tennis"/>
+                                        <img src='{{ asset('src/img/tennis.webp') }}' alt="Terrain de tennis" style="width: 100px; padding-top: 10px;" class="img-fluid" alt="Terrain de Tennis"/>
                                     @else
-                                        <img src='{{ asset('src/img/padel.png') }}' style="width: 85px;" class="img-fluid" alt="Terrain de Padel"/>   
+                                        <img src='{{ asset('src/img/padel.png') }}' alt="Terrain de padel" style="width: 85px;" class="img-fluid" alt="Terrain de Padel"/>   
                                     @endif
                                 </div>
 
@@ -38,25 +38,32 @@
                                     @foreach($timeslots as $timeslot)
                                         @php
                                             $isTimeslotAvailable = true;
-                                            $reservationUsers = [];
+                                            $reservationId = null;
                                             if(!empty($reservations))
                                             {
                                                 foreach ($reservations as $reservation) {
                                                     if ($reservation->timeslot_id === $timeslot->id && $reservation->field_id === $field->id) {
                                                         $isTimeslotAvailable = false;
+                                                        $reservationId = $reservation->id;
                                                         break;
                                                     }
                                                 }
                                             }
                                         @endphp
                                         @if($isTimeslotAvailable)
-                                        <a href="{{ route('booking', ['date' => $date, 'field_id' => $field->id, 'timeslot_id' => $timeslot->id, 'fieldType' => $field->type]) }}" class="btn btn-primary btn-lg mb-2" style="background-color: #FFA500; border-color: #FFA500; width: 100%;">
-                                            {{ $timeslot->start_time }} - {{ $timeslot->end_time }}
-                                        </a>
-                                        @else
-                                            <button type="button" class="btn btn-secondary btn-lg mb-2" disabled style="width: 100%;">
+                                            <a href="{{ route('booking', ['date' => $date, 'field_id' => $field->id, 'timeslot_id' => $timeslot->id, 'fieldType' => $field->type]) }}" class="btn btn-primary btn-lg mb-2" style="background-color: #FFA500; border-color: #FFA500; width: 100%;">
                                                 {{ $timeslot->start_time }} - {{ $timeslot->end_time }}
-                                            </button>
+                                            </a>
+                                        @else
+                                            @if(Auth::user()->admin == 1)
+                                                <a href="{{ url("users/reservations/one/$reservationId") }}" class="btn btn-secondary btn-lg mb-2" style="width: 100%;">
+                                                    {{ $timeslot->start_time }} - {{ $timeslot->end_time }}
+                                                </a>
+                                            @else
+                                                <button type="button" class="btn btn-secondary btn-lg mb-2" disabled style="width: 100%;">
+                                                    {{ $timeslot->start_time }} - {{ $timeslot->end_time }}
+                                                </button>
+                                            @endif
                                         @endif
                                     @endforeach
                                 </div>

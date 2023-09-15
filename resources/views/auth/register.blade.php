@@ -40,7 +40,7 @@
                         </div>
 
                         <div style="text-align:center;">
-                            <img src="{{ url('/images/default.png') }}" id="imgshow" style="width:120px; height:120px; border-radius:50%; margin-bottom:10px;">
+                            <img src="{{ url('/images/default.png') }}" alt="Image de profil" id="imgshow" style="width:120px; height:120px; border-radius:50%; margin-bottom:10px;">
                         </div>
                         <div class="row mb-3">
                             <label for="image" class="col-md-4 col-form-label text-md-end" style="color: white;">Image de profil</label>
@@ -92,13 +92,21 @@
 
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label for="newsletter" class="col-md-4 col-form-label" style="color: white;">Newsletter</label>
+                                <label for="newsletter" class="col-md-4 col-form-label" style="color: white;">Je souhaite être tenu au courant des nouveautés par mail</label>
                                 <input id="newsletter" type="checkbox" class="mt-2form-check-input @error('newsletter') is-invalid @enderror" name="newsletter" autofocus>
                                 @error('newsletter')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="conditions" class="col-md-4 col-form-label" style="color: white;">J'accepte les <a href=" {{ url('/conditions') }}" target="_blank">conditions d'utilisation</a></label>
+                                <input id="conditions" type="checkbox" class="mt-2form-check-input @error('conditions') is-invalid @enderror" name="newsletter" autofocus>
+                                <div id="conditionsError" class="invalid-feedback"></div>
                             </div>
                         </div>
 

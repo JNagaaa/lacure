@@ -28,9 +28,9 @@ class NotificationController extends Controller
 
         if ($notification) {
             $notification->markAsRead();
-            return response()->json(['message' => 'Notification marked as read.']);
+            return response()->json(['message' => 'Notification marquée comme lue.']);
         }
 
-        return response()->json(['message' => 'Notification not found.'], 404);
+        return response()->json(['message' => 'Notification non trouvée.'], 404);
     }
 }

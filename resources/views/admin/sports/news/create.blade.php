@@ -27,7 +27,7 @@
                         </div>
 
                         <div style="text-align:center;">
-                            <img src="{{ url('/images/defaultNews.png') }}" id="imgshow" style="width:120px; height:120px; border-radius:10%; margin-bottom:10px;">
+                            <img src="{{ url('/images/defaultNews.png') }}" alt="Image de la news" id="imgshow" style="width:120px; height:120px; border-radius:10%; margin-bottom:10px;">
                         </div>
                         <div class="row mb-3">
                             <label for="image" class="col-md-4 col-form-label text-md-end">Photo d'illustration</label>

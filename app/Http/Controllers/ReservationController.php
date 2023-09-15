@@ -61,12 +61,6 @@ class ReservationController extends Controller
         return view('users/reservations/one', compact('reservation'));
     }
 
-    public function showHoreca($id)
-    {
-        $reservation = Reservation::Find($id);
-        return view('users/reservations/one', compact('reservation'));
-    }
-
     public function delete($id)
     {
         $reservation = Reservation::Find($id);

@@ -5,9 +5,9 @@
                 <div class="card-header" style="background-color: #443f39; color: #FFFFFF; border-top-left-radius: 10px; border-top-right-radius: 10px;">
                     <h3>Terrain {{ $field->number }}</h3>
                     @if($field->type == "Tennis")
-                        <img src='{{ asset('src/img/tennis.webp') }}' style="width: 100px; padding-top: 10px;" class="img-fluid" alt="Terrain de Tennis"/>
+                        <img src='{{ asset('src/img/tennis.webp') }}' alt="Terrain de tennis" style="width: 100px; padding-top: 10px;" class="img-fluid" alt="Terrain de Tennis"/>
                     @else
-                        <img src='{{ asset('src/img/padel.png') }}' style="width: 85px;" class="img-fluid" alt="Terrain de Padel"/>   
+                        <img src='{{ asset('src/img/padel.png') }}' alt="Terrain de padel" style="width: 85px;" class="img-fluid" alt="Terrain de Padel"/>   
                     @endif
                 </div>
 

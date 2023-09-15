@@ -13,7 +13,7 @@
                         @csrf
 
                         <div class="text-center">
-                            <img src="{{ url('/images/defaultPlate.png') }}" id="imgshow" style="width:120px; height:120px; border-radius:10%; margin-bottom:10px;">
+                            <img src="{{ url('/images/defaultPlate.png') }}" alt="Image du plat" id="imgshow" style="width:120px; height:120px; border-radius:10%; margin-bottom:10px;">
                         </div>
 
                         <div class="row mb-3">

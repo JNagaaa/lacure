@@ -21,8 +21,17 @@
                         @csrf
                         @method('PUT')
 
+                        <div class="text-center mt-4">
+                            @if($news->image != "defaultNews.png")
+                                <img src="{{url('storage/'.$news->image)}}" alt="Image de la news" id="imgshow" style="width:120px; height:120px; border-radius:50%;">
+                            @else
+                                <img src="{{url('images/defaultNews.png')}}" id="imgshow" alt="Image de la news" style="width:120px; height:120px; border-radius:50%;">
+                            @endif
+                        </div>
+                        <br>
+
                         <div class="row mb-3">
-                            <label for="title" class="col-md-4 col-form-label text-md-end">Numéro</label>
+                            <label for="title" class="col-md-4 col-form-label text-md-end">Titre</label>
 
                             <div class="col-md-6">
                                 <input id="title" type="text" class="form-control @error('name') is-invalid @enderror" name="title" value="{{ $news->title }}" required autocomplete="title" autofocus>
@@ -32,6 +41,13 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="image" class="col-md-4 col-form-label text-md-end">{{ __('Image de la news') }}</label>
+                            <div class="col-md-6">
+                                <input id="imgload" type="file" class="form-control" name="image" onchange="onFileSelected(event)">
                             </div>
                         </div>
 
